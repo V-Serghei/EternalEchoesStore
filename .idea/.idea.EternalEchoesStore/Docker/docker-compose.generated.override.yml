@@ -1,0 +1,23 @@
+# This is a generated file. Not intended for manual editing.
+version: "3.5"
+services:
+  app:
+    build:
+      context: "D:\\WebProject\\EternalEchoesStore\\EternalEchoesStore.Presentation"
+      dockerfile: "Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/EternalEchoesStore.Presentation.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ASPNETCORE_STATICWEBASSETS: "/app/bin/Debug/net8.0/EternalEchoesStore.Presentation.staticwebassets.runtime.CT.json"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "eternalechoesstore.presentation:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\Ричи\\.nuget\\packages:/home/app/.nuget/packages"
+    - "D:\\WebProject\\EternalEchoesStore\\EternalEchoesStore.Presentation:/app:rw"
+    - "D:\\WebProject\\EternalEchoesStore:/src:rw"
+    working_dir: "/app"

@@ -1,0 +1,35 @@
+version: '3.5'
+
+networks:
+  deploy-guide-dev:
+    driver: bridge
+services:
+  app:
+    container_name: eternal_echoes_store
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: eternalechoesstore.presentation
+    ports:
+      - "8080:80"
+    networks:
+      - deploy-guide-dev
+    depends_on:
+      - postgres_db
+
+  postgres_db:
+    container_name: postgres
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: eternal_echoes_store
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5432:5432"
+    networks:
+      - deploy-guide-dev
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
