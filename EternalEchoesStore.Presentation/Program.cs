@@ -9,7 +9,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddDbContext<ProductDbContext>(options =>
 {
-    options.UseSqlite(builder.Configuration.GetConnectionString("DbConnectionString"));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DbConnectionString"));
 });
 
 var app = builder.Build();
