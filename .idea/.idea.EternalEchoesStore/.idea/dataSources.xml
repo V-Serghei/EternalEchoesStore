@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="eternal_echoes_store@localhost" uuid="6dcdad82-cd2b-4f03-a5bc-356590ae7b56">
+    <data-source source="LOCAL" name="eternal_echoes_store@localhost" uuid="fc86ad01-c80b-48c3-9b68-225f085e23be">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <configured-by-url>true</configured-by-url>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/eternal_echoes_store?password=root&amp;user=admin</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5433/eternal_echoes_store?password=root&amp;user=admin</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
