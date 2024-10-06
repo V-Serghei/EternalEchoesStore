@@ -6,4 +6,21 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Mapster" Version="7.4.1-pre01" />
+      <PackageReference Include="Mapster.DependencyInjection" Version="1.0.1" />
+      <PackageReference Include="MediatR" Version="12.4.1" />
+      <PackageReference Include="MediatR.Contracts" Version="2.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Commands\Product\DeleteProduct\" />
+      <Folder Include="Commands\Product\UpdateProduct\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\EternalEchoesStore.Contracts\EternalEchoesStore.Contracts.csproj" />
+      <ProjectReference Include="..\EternalEchoesStore.Infrastructure\EternalEchoesStore.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>

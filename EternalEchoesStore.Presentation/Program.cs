@@ -1,3 +1,4 @@
+using EternalEchoesStore.Application;
 using EternalEchoesStore.Infrastructure.DbContextInfrastructure;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,8 @@ builder.Services.AddDbContext<ProductDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DbConnectionString"));
 });
+
+builder.Services.AddApplication();
 
 var app = builder.Build();
 
