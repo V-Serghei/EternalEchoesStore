@@ -28,4 +28,8 @@
       <ProjectReference Include="..\EternalEchoesStore.Infrastructure\EternalEchoesStore.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Client\" />
+    </ItemGroup>
+
 </Project>

@@ -1,5 +1,7 @@
 using EternalEchoesStore.Application;
 using EternalEchoesStore.Infrastructure.DbContextInfrastructure;
+using EternalEchoesStore.Presentation.Handlers;
+using EternalEchoesStore.Presentation.Modules;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +16,7 @@ builder.Services.AddDbContext<ProductDbContext>(options =>
 });
 
 builder.Services.AddApplication();
+builder.Services.AddExceptionHandler<ExceptionHandler>();
 
 var app = builder.Build();
 
@@ -25,7 +28,9 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseExceptionHandler(_ => { });
 app.UseHttpsRedirection();
+app.AddProductEndpoints();
 app.UseStaticFiles();
 
 app.UseRouting();

@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
+using EternalEchoesStore.Application.Behaviors;
 using EternalEchoesStore.Application.Mappings;
+using FluentValidation;
 using Mapster;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,6 +14,8 @@ public static class DependencyInjection
         service.AddMediatR(cf =>
         {
             cf.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly());
+
+            cf.AddOpenBehavior(typeof(ValidationBehaviors<,>));
         });
         
         MappingConfig.Configure();
@@ -19,6 +23,8 @@ public static class DependencyInjection
         config.Scan(Assembly.GetExecutingAssembly());
         service.AddSingleton(config);
 
+        service.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly()); 
+        
         return service;
     }
 }

@@ -1,4 +1,6 @@
-﻿using EternalEchoesStore.Contracts.Responses;
+﻿using EternalEchoesStore.Contracts.Exceptions;
+using EternalEchoesStore.Contracts.Responses;
+using EternalEchoesStore.Domain.Entities.ProductDb;
 using EternalEchoesStore.Infrastructure.DbContextInfrastructure;
 using Mapster;
 using MediatR;
@@ -21,7 +23,8 @@ public class GetProductByIdQueryHandler:IRequestHandler<GetProductByIdQuery, Get
 
         if (product is null)
         {
-            throw new Exception();
+            throw new NotFoundException($"{nameof(ProductDb)} with {nameof(ProductDb.Id)}: {request.Id}" +
+                                        $"was not found in database");
         }
 
         return product.Adapt<GetProductByIdRespons>();
