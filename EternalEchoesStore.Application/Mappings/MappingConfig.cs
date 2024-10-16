@@ -1,5 +1,5 @@
-﻿using EternalEchoesStore.Application.Commands.Product.CreateProduct;
-using EternalEchoesStore.Application.Commands.Product.UpdateProduct;
+﻿using EternalEchoesStore.Application.Commands.Products.CreateProduct;
+using EternalEchoesStore.Application.Commands.Products.UpdateProduct;
 using EternalEchoesStore.Contracts.Responses;
 using EternalEchoesStore.Domain.Entities.ProductDb;
 using Mapster;
@@ -10,17 +10,20 @@ public class MappingConfig
 {
     public static void Configure()
     {
-        TypeAdapterConfig<List<ProductDb>, GetProductResponse>.NewConfig()
+        TypeAdapterConfig<List<Product>, GetProductsResponse>.NewConfig()
             .Map(dest => dest.ProductDtos, src => src);
-        TypeAdapterConfig<ProductDb, GetProductByIdRespons>.NewConfig()
+        TypeAdapterConfig<GetProductsResponse, List<Product>>.NewConfig()
+            .Map(dest => dest, src => src.ProductDtos);
+        
+        TypeAdapterConfig<Product, GetProductByIdResponse>.NewConfig()
             .Map(dest => dest.ProductDto, src => src);
-        TypeAdapterConfig<ProductDb, CreateProductCommand>.NewConfig()
+        TypeAdapterConfig<Product, CreateProductCommand>.NewConfig()
             .Map(dist => dist, src => src);
-        TypeAdapterConfig<CreateProductCommand, ProductDb>.NewConfig()
+        TypeAdapterConfig<CreateProductCommand, Product>.NewConfig()
             .Map(dist => dist, src => src);
-        TypeAdapterConfig<UpdateProductCommand, ProductDb>.NewConfig()
+        TypeAdapterConfig<UpdateProductCommand, Product>.NewConfig()
             .Map(dist => dist, src => src);
-        TypeAdapterConfig<ProductDb, UpdateProductCommand>.NewConfig()
+        TypeAdapterConfig<Product, UpdateProductCommand>.NewConfig()
             .Map(dist => dist, src => src);
     }
 }

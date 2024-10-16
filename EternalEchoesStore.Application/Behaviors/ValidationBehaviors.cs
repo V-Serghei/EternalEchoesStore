@@ -5,7 +5,7 @@ using MediatR;
 
 namespace EternalEchoesStore.Application.Behaviors;
 
-public class ValidationBehaviors<TRequest,TResponse>:IPipelineBehavior<TRequest,TRequest>
+public class ValidationBehaviors<TRequest,TResponse>:IPipelineBehavior<TRequest,TResponse>
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators;
 
@@ -14,14 +14,14 @@ public class ValidationBehaviors<TRequest,TResponse>:IPipelineBehavior<TRequest,
         _validators = validators;
     }
     
-    public async Task<TRequest> Handle(TRequest request, RequestHandlerDelegate<TRequest> next,
+    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next,
         CancellationToken cancellationToken)
     {
         var context = new ValidationContext<TRequest>(request);
 
         var validationResults = await Task.WhenAll(
             _validators.Select(x => x.ValidateAsync(context, cancellationToken)));
-        var failures = validationResults.Where(x => x.IsValid)
+        var failures = validationResults.Where(x => !x.IsValid)
             .SelectMany(x=>x.Errors)
             .Select(x=> new ValidationError
             {
@@ -36,4 +36,5 @@ public class ValidationBehaviors<TRequest,TResponse>:IPipelineBehavior<TRequest,
         var response = await next();
         return response;
     }
+    
 }

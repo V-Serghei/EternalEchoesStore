@@ -2,4 +2,4 @@
 
 namespace EternalEchoesStore.Contracts.Responses;
 
-public record GetProductByIdResponse(ProductDto ProductDto);
+public record GetProductsResponse(List<ProductDto> ProductDtos);

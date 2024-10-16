@@ -22,7 +22,7 @@ namespace EternalEchoesStore.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("EternalEchoesStore.Domain.Entities.ProductDb.ProductDb", b =>
+            modelBuilder.Entity("EternalEchoesStore.Domain.Entities.Products.Products", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
