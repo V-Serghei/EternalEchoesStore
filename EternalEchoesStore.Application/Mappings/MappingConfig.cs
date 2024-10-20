@@ -3,6 +3,8 @@
     using EternalEchoesStore.Contracts.Responses;
     using EternalEchoesStore.Domain.Entities.ProductDb;
     using Mapster;
+    using EternalEchoesStore.Contracts.Responses.UserResponses;
+    using EternalEchoesStore.Domain.Entities.UserDb;
 
     namespace EternalEchoesStore.Application.Mappings;
 
@@ -25,5 +27,10 @@
                 .Map(dist => dist, src => src);
             TypeAdapterConfig<Product, UpdateProductCommand>.NewConfig()
                 .Map(dist => dist, src => src);
+        
+            TypeAdapterConfig<List<UserDb>, GetUsersResponse>.NewConfig()
+                .Map(dest => dest.UserDtos, src => src);
+            TypeAdapterConfig<UserDb, GetUserByIdResponse>.NewConfig()
+                .Map(dest => dest.UserDto, src => src);
         }
     }

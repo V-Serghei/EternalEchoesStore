@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EternalEchoesStore.Infrastructure.Migrations
 {
     [DbContext(typeof(ProductDbContext))]
-    [Migration("20241004115153_Init")]
+    [Migration("20241007084114_Init")]
     partial class Init
     {
         /// <inheritdoc />

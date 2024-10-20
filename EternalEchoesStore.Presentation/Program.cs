@@ -12,6 +12,10 @@ builder.Services.AddDbContext<ProductDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DbConnectionString"));
 });
+builder.Services.AddDbContext<UserDbContext>(options =>
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DbConnectionString"));
+});
 builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("CorsPolicy", policyBuilder =>
