@@ -26,7 +26,7 @@ public static class ProductsModule
             return Results.Ok(products);
         }).WithTags("Products");
         
-        app.MapPost("/app/EternalEchoesStore", async (IMediator mediator, CreateProductRequest createProductRequest,
+        app.MapPost("/api/EternalEchoesStore", async (IMediator mediator, CreateProductRequest createProductRequest,
             CancellationToken ct)=>
         {
             var command = new CreateProductCommand

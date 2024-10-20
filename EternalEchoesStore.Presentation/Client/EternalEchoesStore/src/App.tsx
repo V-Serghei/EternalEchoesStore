@@ -1,13 +1,25 @@
 
 import './App.css'
-import ProductTableItem from "./components/product/ProductTableItem.tsx";
 import ProductTable from "./components/product/ProductTable.tsx";
+import {Outlet, useLocation} from "react-router-dom";
+import {Container} from "semantic-ui-react";
+import {useEffect} from "react";
+import {setupErrorHandlingInterceptor} from "./interceptors/axiosInterceptor.tsx";
 
 function App() {
+    const location = useLocation();
 
+    useEffect(() => {
+        setupErrorHandlingInterceptor()
+    }, []);
   return (
     <>
-     <ProductTable></ProductTable>
+        {location.pathname === "/" ? <ProductTable/>:(
+            <Container className="container-style">
+                <Outlet/>
+            </Container>
+        )}
+        
     </>
   )
 }

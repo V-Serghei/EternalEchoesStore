@@ -1,9 +1,10 @@
 ﻿import {ProductDto} from "../../models/productDto.ts";
 import {Button} from "semantic-ui-react";
 import apiConnector from "../../api/apiConnector.ts";
+import {NavLink} from "react-router-dom";
 
-interface Props{
-    product: ProductDto;
+interface Props {
+    product: ProductDto,
 }
 
 export default function ProductTableItem({product}: Props) {
@@ -18,7 +19,7 @@ export default function ProductTableItem({product}: Props) {
                 <td data-label="Category">{product.category}</td>
                 <td data-label="SubCategory">{product.subCategory}</td>
                 <td data-label="Action">
-                    <Button type='submit' color="yellow">Edit</Button>
+                    <Button as={NavLink} to={`editProduct/${product.id}`} type='submit' color="yellow">Edit</Button>
                     <Button type="button" color="red" negative onClick={async () => {
                         await apiConnector.deleteProduct(product.id!);
                         window.location.reload();

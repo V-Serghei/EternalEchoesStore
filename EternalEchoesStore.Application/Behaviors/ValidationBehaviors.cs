@@ -30,6 +30,10 @@ public class ValidationBehaviors<TRequest,TResponse>:IPipelineBehavior<TRequest,
             }).ToList();
         if (failures.Any())
         {
+            foreach (var failure in failures)
+            {
+                Console.WriteLine($"Validation failed for property {failure.Property} with message: {failure.ErrorMessage}");
+            }
             throw new CustomValidationException(failures);
         }
 

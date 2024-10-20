@@ -15,7 +15,7 @@ public static class DependencyInjection
         {
             cf.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly());
 
-            cf.AddOpenBehavior(typeof(ValidationBehaviors<,>));
+           cf.AddOpenBehavior(typeof(ValidationBehaviors<,>));
         });
         
         MappingConfig.Configure();

@@ -1,4 +1,5 @@
 ﻿using EternalEchoesStore.Contracts.Exceptions;
+using EternalEchoesStore.Domain.Entities.ProductDb;
 using EternalEchoesStore.Infrastructure.DbContextInfrastructure;
 using Mapster;
 using MediatR;
@@ -25,7 +26,11 @@ public class UpdateProductCommandHandler:IRequestHandler<UpdateProductCommand,Un
                                         $"was not found in database");
         }
 
-        productToUpdate = request.Adapt<Domain.Entities.ProductDb.Product>();
+        productToUpdate.SubCategory = request.SubCategory;
+        productToUpdate.Title = request.Title;
+        productToUpdate.Description = request.Description;
+        productToUpdate.ImageUrl = request.ImageUrl;
+        productToUpdate.Category = request.Category;
         _productDbContext.Products.Update(productToUpdate);
         await _productDbContext.SaveChangesAsync(cancellationToken);
         

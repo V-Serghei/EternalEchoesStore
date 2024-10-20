@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import apiConnector from "../../api/apiConnector.ts";
 import {Button, Container} from "semantic-ui-react";
 import ProductTableItem from "./ProductTableItem.tsx";
+import {NavLink} from "react-router-dom";
 export default function ProductTable(){
     
     
@@ -24,7 +25,7 @@ export default function ProductTable(){
             }
         };
 
-        fetchData();
+        fetchData().then(r => r);
     }, []);
     
     return (
@@ -52,7 +53,7 @@ export default function ProductTable(){
                     </tbody>
                     
                 </table>
-                <Button floated='right' type='button' content='Create Product' positive/>
+                <Button as={NavLink} to="createProduct" floated='right' type='button' content='Create Product' positive/>
                 
             </Container>
         </>
