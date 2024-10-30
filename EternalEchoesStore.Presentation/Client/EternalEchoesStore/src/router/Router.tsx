@@ -16,6 +16,11 @@ export const routes: RouteObject[] = [
                 element: <ProductForm mode="edit"/>,
             },
             {
+                path: 'viewProduct/:id',
+                element: <ProductForm mode="view"/>,
+            },
+            
+            {
                 path: '*',
                 element: <ProductForm />,
             }

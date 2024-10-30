@@ -1,11 +1,12 @@
 
 import './App.css'
-import ProductTable from "./components/product/ProductTable.tsx";
-import {Outlet, useLocation} from "react-router-dom";
-import {Container, Header} from "semantic-ui-react";
 import {useEffect} from "react";
 import {setupErrorHandlingInterceptor} from "./interceptors/axiosInterceptor.tsx";
 import Footer from "./layers/Footer.tsx";
+import Header from "./layers/Header.tsx";
+import MainContent from "./pages/MainContent.tsx";
+import {useLocation} from "react-router-dom";
+import ProductTable from "./components/product/ProductTable.tsx";
 
 function App() {
     const location = useLocation();
@@ -15,11 +16,13 @@ function App() {
     }, []);
   return (
     <>
-       
-            <Header /> 
-            <Outlet/>
+        <div className="app-container">
+            <Header />
+            <MainContent></MainContent>
+            <br></br>
+            <br></br>
             <Footer />
-        
+        </div>
         
     </>
   )

@@ -1,4 +1,5 @@
 ﻿import React from 'react';
+import {TbTextSize} from "react-icons/tb";
 
 const Footer = () => {
     return (
@@ -10,7 +11,7 @@ const Footer = () => {
                             <div className="footer_widget">
                                 <div className="footer_logo">
                                     <a href="#">
-                                        <img src="/img/footer_logo.png" alt="footer-logo" />
+                                        <img src="/img/logoEESW.png" alt="footer-logo" height={300} width={300}/>
                                     </a>
                                 </div>
                                 <p>5th flora, 700/D kings road, green <br /> lane New York-1782 <br />
