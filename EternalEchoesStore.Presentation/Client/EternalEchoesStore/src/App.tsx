@@ -5,7 +5,7 @@ import {setupErrorHandlingInterceptor} from "./interceptors/axiosInterceptor.tsx
 import Footer from "./layers/Footer.tsx";
 import Header from "./layers/Header.tsx";
 import MainContent from "./pages/MainContent.tsx";
-import {useLocation} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import ProductTable from "./components/product/ProductTable.tsx";
 
 function App() {
@@ -17,13 +17,17 @@ function App() {
   return (
     <>
         <div className="app-container">
-            <Header />
-            <MainContent></MainContent>
-            <br></br>
-            <br></br>
-            <Footer />
+            <Header/> 
+                <nav>
+                <Link to="/createProduct1">Add Product</Link>
+                {/* Другие ссылки */}
+            </nav>
+                <MainContent></MainContent>
+                <br></br>
+                <br></br>
+                <Footer/>
         </div>
-        
+
     </>
   )
 }
