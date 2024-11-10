@@ -1,6 +1,7 @@
 import {createBrowserRouter, RouteObject} from "react-router-dom";
 import App from "../App.tsx";
 import ProductForm from "../components/product/ProductForm.tsx";
+import UserForm from "../components/user/UserForm.tsx";
 
 export const routes: RouteObject[] = [
     {
@@ -18,6 +19,18 @@ export const routes: RouteObject[] = [
             {
                 path: '*',
                 element: <ProductForm />,
+            },
+            {
+                path: 'createUser',
+                element: <UserForm mode="create"/>,
+            },
+            {
+                path: 'editUser/:id',
+                element: <UserForm mode="edit"/>,
+            },
+            {
+                path: '*',
+                element: <UserForm />,
             }
         ]
     }

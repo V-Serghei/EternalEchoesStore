@@ -1,4 +1,6 @@
-﻿using EternalEchoesStore.Infrastructure.DbContextInfrastructure;
+﻿using EternalEchoesStore.Contracts.Exceptions;
+using EternalEchoesStore.Domain.Entities.UserDb;
+using EternalEchoesStore.Infrastructure.DbContextInfrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,7 +20,8 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Unit>
             .FirstOrDefaultAsync(x =>x.Id==request.Id, cancellationToken);
         if (userToUpdate is null)
         {
-            throw new Exception();
+            throw new NotFoundException($"{nameof(UserDb)} with {nameof(UserDb.Id)}: {request.Id}"
+                                        + $" was not found in database");
         }
 
         userToUpdate.Name = request.Name;

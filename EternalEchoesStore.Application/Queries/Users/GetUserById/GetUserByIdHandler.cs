@@ -1,4 +1,6 @@
-﻿using EternalEchoesStore.Contracts.Responses.UserResponses;
+﻿using EternalEchoesStore.Contracts.Exceptions;
+using EternalEchoesStore.Contracts.Responses.UserResponses;
+using EternalEchoesStore.Domain.Entities.UserDb;
 using EternalEchoesStore.Infrastructure.DbContextInfrastructure;
 using Mapster;
 using MediatR;
@@ -20,7 +22,8 @@ public class GetUserByIdHandler : IRequestHandler<GetUserByIdQuery, GetUserByIdR
             .FirstOrDefaultAsync(x=>x.Id==request.Id, cancellationToken);
         if (user is null)
         {
-            throw new Exception();
+            throw new NotFoundException($"{nameof(UserDb)} with {nameof(UserDb.Id)}: {request.Id}"
+                + $" was not found in database");
         }
 
         return user.Adapt<GetUserByIdResponse>();

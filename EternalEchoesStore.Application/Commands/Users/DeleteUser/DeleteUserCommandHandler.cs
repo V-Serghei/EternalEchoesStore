@@ -1,4 +1,6 @@
-﻿using EternalEchoesStore.Infrastructure.DbContextInfrastructure;
+﻿using EternalEchoesStore.Contracts.Exceptions;
+using EternalEchoesStore.Domain.Entities.UserDb;
+using EternalEchoesStore.Infrastructure.DbContextInfrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,7 +20,8 @@ public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, Unit>
             .FirstOrDefaultAsync(x =>x.Id==request.Id, cancellationToken);
         if (userToDelete is null)
         {
-            throw new Exception();
+            throw new NotFoundException($"{nameof(UserDb)} with {nameof(UserDb.Id)}: {request.Id}"
+                                        + $" was not found in database");
         }
 
         _userDbContext.Users.Remove(userToDelete);
