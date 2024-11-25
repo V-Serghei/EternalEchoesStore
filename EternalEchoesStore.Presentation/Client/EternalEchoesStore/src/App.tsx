@@ -6,7 +6,7 @@ import Footer from "./layers/Footer.tsx";
 import Header from "./layers/Header.tsx";
 import MainContent from "./pages/MainContent.tsx";
 import {Link, useLocation} from "react-router-dom";
-import ProductTable from "./components/product/ProductTable.tsx";
+
 
 function App() {
     const location = useLocation();
@@ -21,7 +21,7 @@ function App() {
                 <nav>
                 <Link to="/createProduct1">Add Product</Link>
                 {/* Другие ссылки */}
-            </nav>
+                </nav>
                 <MainContent></MainContent>
                 <br></br>
                 <br></br>
