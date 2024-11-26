@@ -3,6 +3,7 @@ import ProductTable from "../components/product/ProductTable.tsx";
 import {setupErrorHandlingInterceptor} from "../interceptors/axiosInterceptor.tsx";
 import {Outlet, useLocation} from "react-router-dom";
 import {Container} from "semantic-ui-react";
+import UserTable from "../components/user/UserTable.tsx";
 
 const MainContent = () => {
 
@@ -19,8 +20,7 @@ const MainContent = () => {
                     <Container className="container-style">
                         <Outlet/>
                     </Container>
-                )}
-
+                )},
             </>
             
         </div>

@@ -8,17 +8,19 @@ interface Props {
 }
 export default function UserTableItem({user}:Props)
 {
+    console.log(user)
+    
     return (
         <>
             <tr className="center aligned">
-                <td data-label="Id">{user.id}</td>
-                <td data-label="Title">{user.Name}</td>
-                <td data-label="Description">{user.Surname}</td>
-                <td data-label="CreatedAt">{user.Email}</td>
-                <td data-label="ImageUrl">{user.Password}</td>
-                <td data-label="Category">{user.Photo}</td>
+                <td data-label="id">{user.id}</td>
+                <td data-label="name">{user.name}</td>
+                <td data-label="surname">{user.surname}</td>
+                <td data-label="email">{user.email}</td>
+                <td data-label="password">{user.password}</td>
+                <td data-label="photo">{user.photo}</td>
                 <td data-label="Action">
-                    <Button as={NavLink} to={`editUser/${user.id}`} type='submit' color="green">Edit</Button>
+                    <Button as={NavLink} to={`profile/editUser/${user.id}`} type='submit' color="green">Edit</Button>
                     <Button type="button" color="orange" negative onClick={async () => {
                         await apiConnector.deleteUser(user.id!);
                         window.location.reload();

@@ -1,10 +1,10 @@
 ﻿export interface  UserDto {
     
     id: number | undefined,
-    Name: string,
-    Surname: string,
-    Email: string,
-    Password: string,
-    Photo: string,
-    CreatedAt: string | undefined
+    name: string,
+    surname: string,
+    email: string,
+    password: string,
+    photo: string,
+    createdAt: string | undefined
 }

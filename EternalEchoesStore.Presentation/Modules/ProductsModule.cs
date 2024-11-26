@@ -14,19 +14,19 @@ public static class ProductsModule
     public static void AddProductEndpoints(this IEndpointRouteBuilder app)
     {
 
-        app.MapGet("/api/EternalEchoesStore/", async (IMediator mediator, CancellationToken ct) =>
+        app.MapGet("/api/EternalEchoesStore/product/", async (IMediator mediator, CancellationToken ct) =>
         {
             var products = await mediator.Send(new GetProductsQuery(), ct);
             return Results.Ok(products);
         }).WithTags("Products");
 
-        app.MapGet("/api/EternalEchoesStore/{id}", async (IMediator mediator,int id, CancellationToken ct) =>
+        app.MapGet("/api/EternalEchoesStore/product/{id}", async (IMediator mediator,int id, CancellationToken ct) =>
         {
             var products = await mediator.Send(new GetProductByIdQuery(id), ct);
             return Results.Ok(products);
         }).WithTags("Products");
         
-        app.MapPost("/api/EternalEchoesStore", async (IMediator mediator, CreateProductRequest createProductRequest,
+        app.MapPost("/api/EternalEchoesStore/product", async (IMediator mediator, CreateProductRequest createProductRequest,
             CancellationToken ct)=>
         {
             var command = new CreateProductCommand
@@ -41,7 +41,7 @@ public static class ProductsModule
             return Results.Ok(result);
         }).WithTags("Products");
 
-        app.MapPut("/api/EternalEchoesStore/{id}",
+        app.MapPut("/api/EternalEchoesStore/product/{id}",
             async (IMediator mediator, int id, UpdateProductRequest updateProductRequest, CancellationToken ct) =>
             {
                 var command = new UpdateProductCommand
@@ -58,7 +58,7 @@ public static class ProductsModule
                 return Results.Ok(result);
             }).WithTags("Products");
         
-        app.MapDelete("/api/EternalEchoesStore/{id}", async (IMediator mediator, int id, CancellationToken ct) =>
+        app.MapDelete("/api/EternalEchoesStore/product/{id}", async (IMediator mediator, int id, CancellationToken ct) =>
         {
             var command = new DeleteProductCommand(id);
             var result = await mediator.Send(command, ct);

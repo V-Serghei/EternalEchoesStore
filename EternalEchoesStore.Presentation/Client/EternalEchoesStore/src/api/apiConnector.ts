@@ -9,7 +9,7 @@ import {UserDto} from "../models/userDto.ts";
 
 const apiConnector = {
     getProduct: async (): Promise<ProductDto[]> => {
-            const response: AxiosResponse<GetProductsResponse> = await axios.get(`${API_BASE_URL}/EternalEchoesStore`);
+            const response: AxiosResponse<GetProductsResponse> = await axios.get(`${API_BASE_URL}/EternalEchoesStore/product`);
 
             if (response.data && Array.isArray(response.data.productDtos)) {
                 return response.data.productDtos.map(product => ({
@@ -24,28 +24,28 @@ const apiConnector = {
 
 
     createProduct: async (product: ProductDto): Promise<void> => {
-            await axios.post<number>(`${API_BASE_URL}/EternalEchoesStore`, product);
+            await axios.post<number>(`${API_BASE_URL}/EternalEchoesStore/product`, product);
     },
 
     editProduct : async (product: ProductDto) : Promise<void> => {
-                await axios.put<number>(`${API_BASE_URL}/EternalEchoesStore/${product.id}`, product);
+                await axios.put<number>(`${API_BASE_URL}/EternalEchoesStore/product/${product.id}`, product);
 
         },
     deleteProduct: async (productId: number): Promise<void> => {
-            await axios.delete(`${API_BASE_URL}/EternalEchoesStore/${productId}`);
+            await axios.delete(`${API_BASE_URL}/EternalEchoesStore/product/${productId}`);
     },
     getProductById: async (productId: number): Promise<ProductDto | undefined> => {
-            const response = await axios.get<GetProductByIdResponse>(`${API_BASE_URL}/EternalEchoesStore/${productId}`);
+            const response = await axios.get<GetProductByIdResponse>(`${API_BASE_URL}/EternalEchoesStore/product/${productId}`);
             return response.data.productDto; 
     },
     //User System
     getUser: async (): Promise<UserDto[]> => {
-        const response: AxiosResponse<GetUsersResponse> = await axios.get(`${API_BASE_URL}/EternalEchoesStore`);
+        const response: AxiosResponse<GetUsersResponse> = await axios.get(`${API_BASE_URL}/EternalEchoesStore/user`);
 
         if (response.data && Array.isArray(response.data.userDtos)) {
             return response.data.userDtos.map(user => ({
                 ...user,
-                createdAt: user.CreatedAt?.slice(0, 10) ?? ""
+                createdAt: user.createdAt?.slice(0, 10) ?? ""
             }));
         } else {
             console.error('Invalid data format:', response.data);
@@ -53,18 +53,18 @@ const apiConnector = {
         }
     },
     createUser: async (user: UserDto): Promise<void> => {
-        await axios.post<number>(`${API_BASE_URL}/EternalEchoesStore`, user);
+        await axios.post<number>(`${API_BASE_URL}/EternalEchoesStore/user`, user);
     },
 
     editUser : async (user: UserDto) : Promise<void> => {
-        await axios.put<number>(`${API_BASE_URL}/EternalEchoesStore/${user.id}`, user);
+        await axios.put<number>(`${API_BASE_URL}/EternalEchoesStore/user/${user.id}`, user);
 
     },
     deleteUser: async (userId: number): Promise<void> => {
-        await axios.delete(`${API_BASE_URL}/EternalEchoesStore/${userId}`);
+        await axios.delete(`${API_BASE_URL}/EternalEchoesStore/user/${userId}`);
     },
-    getUserById: async (userId: string): Promise<UserDto | undefined> => {
-        const response = await axios.get<GetUserByIdResponse>(`${API_BASE_URL}/EternalEchoesStore/${userId}`);
+    getUserById: async (userId: number): Promise<UserDto | undefined> => {
+        const response = await axios.get<GetUserByIdResponse>(`${API_BASE_URL}/EternalEchoesStore/user/${userId}`);
         return response.data.userDto;
     }
 
