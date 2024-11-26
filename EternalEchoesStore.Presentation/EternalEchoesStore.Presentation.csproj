@@ -39,6 +39,7 @@
       <Folder Include="Client\EternalEchoesStore\public\img\gallery\" />
       <Folder Include="Client\EternalEchoesStore\public\img\icon\" />
       <Folder Include="Client\EternalEchoesStore\public\img\post\" />
+      <Folder Include="Client\EternalEchoesStore\src\models\" />
     </ItemGroup>
 
     

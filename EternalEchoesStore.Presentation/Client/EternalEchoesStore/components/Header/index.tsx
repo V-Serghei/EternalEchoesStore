@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useState } from "react";
 
 import ThemeToggler from "./ThemeToggler";
 import menuData from "./menuData";
@@ -15,12 +15,25 @@ const Header = () => {
   const [cartOpen, setCartOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
 
-
-  const cartRef = useRef(null);
-  const profileRef = useRef(null);
-
   const pathUrl = usePathname();
+  const [hideTimeout, setHideTimeout] = useState<number | null>(null);
 
+  
+  const handleMouseEnter = (setOpen: (value: boolean) => void) => {
+    if (hideTimeout) {
+      clearTimeout(hideTimeout);
+      setHideTimeout(null);
+    }
+    setOpen(true);
+  };
+
+  
+  const handleMouseLeave = (setOpen: (value: boolean) => void) => {
+    const timeout = setTimeout(() => {
+      setOpen(false);
+    }, 300);
+    setHideTimeout(timeout as unknown as number); 
+  };
   // Sticky menu
   const handleStickyMenu = () => {
     if (window.scrollY >= 80) {
@@ -29,36 +42,6 @@ const Header = () => {
       setStickyMenu(false);
     }
   };
-  const handleCartClick = () => {
-    setCartOpen(!cartOpen);
-    setProfileOpen(false); // Закрыть окно профиля при открытии корзины
-  };
-
-  const handleProfileClick = () => {
-    setProfileOpen(!profileOpen);
-    setCartOpen(false); // Закрыть окно корзины при открытии профиля
-  };
-  useEffect(() => {
-    const handleOutsideClick = (event: MouseEvent) => {
-      if (
-          cartRef.current &&
-          !cartRef.current.contains(event.target as Node) &&
-          profileRef.current &&
-          !profileRef.current.contains(event.target as Node)
-      ) {
-        setCartOpen(false);
-        setProfileOpen(false);
-      }
-    };
-
-    // Добавляем слушатель кликов
-    document.addEventListener("mousedown", handleOutsideClick);
-
-    // Убираем слушатель при размонтировании компонента
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, [cartRef, profileRef]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleStickyMenu);
@@ -91,17 +74,35 @@ const Header = () => {
               />
             </a>
 
+            {/* Hamburger Toggle BTN */}
             <button
                 aria-label="hamburger Toggler"
                 className="block xl:hidden"
                 onClick={() => setNavigationOpen(!navigationOpen)}
             >
             <span className="relative block h-5.5 w-5.5 cursor-pointer">
-              {/* ... */}
+              <span className="absolute right-0 block h-full w-full">
+                <span
+                    className={`relative left-0 top-0 my-1 block h-0.5 rounded-sm bg-black delay-[0] duration-200 ease-in-out dark:bg-white ${
+                        !navigationOpen ? "!w-full delay-300" : "w-0"
+                    }`}
+                ></span>
+                <span
+                    className={`relative left-0 top-0 my-1 block h-0.5 rounded-sm bg-black delay-150 duration-200 ease-in-out dark:bg-white ${
+                        !navigationOpen ? "delay-400 !w-full" : "w-0"
+                    }`}
+                ></span>
+                <span
+                    className={`relative left-0 top-0 my-1 block h-0.5 rounded-sm bg-black delay-200 duration-200 ease-in-out dark:bg-white ${
+                        !navigationOpen ? "!w-full delay-500" : "w-0"
+                    }`}
+                ></span>
+              </span>
             </span>
             </button>
           </div>
 
+          {/* Nav Menu Start */}
           <div
               className={`invisible h-0 w-full items-center justify-between xl:visible xl:flex xl:h-auto xl:w-full ${
                   navigationOpen &&
@@ -114,7 +115,33 @@ const Header = () => {
                     <li key={key} className={menuItem.submenu && "group relative"}>
                       {menuItem.submenu ? (
                           <>
-                            {/* ... */}
+                            <button
+                                onClick={() => setDropdownToggler(!dropdownToggler)}
+                                className="flex cursor-pointer items-center justify-between gap-3 hover:text-primary"
+                            >
+                              {menuItem.title}
+                              <span>
+                          <svg
+                              className="h-3 w-3 cursor-pointer fill-waterloo group-hover:fill-primary"
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 512 512"
+                          >
+                            <path
+                                d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/>
+                          </svg>
+                        </span>
+                            </button>
+                            <ul
+                                className={`dropdown ${
+                                    dropdownToggler ? "flex" : ""
+                                }`}
+                            >
+                              {menuItem.submenu.map((item, key) => (
+                                  <li key={key} className="hover:text-primary">
+                                    <Link href={item.path || "#"}>{item.title}</Link>
+                                  </li>
+                              ))}
+                            </ul>
                           </>
                       ) : (
                           <Link
@@ -134,60 +161,68 @@ const Header = () => {
             </nav>
 
             <div className="mt-7 flex items-center gap-6 xl:mt-0">
-              <ThemeToggler />
+              <ThemeToggler/>
 
-              <Link href="/register" className="text-primary font-medium">
+              <Link href="/auth/signup" className="text-primary font-medium">
                 Sign up
               </Link>
 
-              <div className="relative" ref={cartRef}>
-                <button
-                    className="text-primary font-medium"
-                    onClick={handleCartClick}
+              <div
+                  className="relative"
+                  onMouseEnter={() => handleMouseEnter(setCartOpen)}
+                  onMouseLeave={() => handleMouseLeave(setCartOpen)}
+              >
+                <button className="text-primary font-medium">Basket 🛒</button>
+                <div
+                    className={`absolute right-0 top-full mt-2 w-80 bg-white p-4 shadow-md dark:bg-gray-800 transition-all duration-300 transform ${
+                        cartOpen
+                            ? "opacity-100 translate-y-0 visible"
+                            : "opacity-0 -translate-y-4 invisible"
+                    }`}
                 >
-                  Basket 🛒
-                </button>
-                {cartOpen && (
-                    <div className="absolute right-0 top-full mt-2 w-80 bg-white p-4 shadow-md dark:bg-gray-800">
-                      <p className="text-gray-700 dark:text-gray-300">
-                        Ваши товары в корзине:
-                      </p>
-                      <ul>
-                        <li>Товар 1</li>
-                        <li>Товар 2</li>
-                      </ul>
-                    </div>
-                )}
+                  <p className="text-gray-700 dark:text-gray-300">
+                    Ваши товары в корзине:
+                  </p>
+                  <ul>
+                    <li>Товар 1</li>
+                    <li>Товар 2</li>
+                  </ul>
+                </div>
               </div>
 
-              <div className="relative" ref={profileRef}>
-                <button
-                    className="text-primary font-medium"
-                    onClick={handleProfileClick}
+              {/* Профиль */}
+              <div
+                  className="relative"
+                  onMouseEnter={() => handleMouseEnter(setProfileOpen)}
+                  onMouseLeave={() => handleMouseLeave(setProfileOpen)}
+              >
+                <button className="text-primary font-medium">Profile 👤</button>
+                <div
+                    className={`absolute right-0 top-full mt-2 w-64 bg-white p-4 shadow-md dark:bg-gray-800 transition-all duration-300 transform ${
+                        profileOpen
+                            ? "opacity-100 translate-y-0 visible"
+                            : "opacity-0 -translate-y-4 invisible"
+                    }`}
                 >
-                  Profile 👤
-                </button>
-                {profileOpen && (
-                    <div className="absolute right-0 top-full mt-2 w-64 bg-white p-4 shadow-md dark:bg-gray-800">
-                      <ul>
-                        <li>
-                          <Link href="/profile/settings">Настройки</Link>
-                        </li>
-                        <li>
-                          <Link href="/profile/account">Личный кабинет</Link>
-                        </li>
-                        <li>
-                          <Link href="/profile/orders">Покупки</Link>
-                        </li>
-                      </ul>
-                    </div>
-                )}
+                  <ul>
+                    <li>
+                      <Link href="/profile/settings">Настройки</Link>
+                    </li>
+                    <li>
+                      <Link href="/profile/account">Личный кабинет</Link>
+                    </li>
+                    <li>
+                      <Link href="/profile/orders">Покупки</Link>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
         </div>
+
       </header>
-  );
+);
 };
 
 export default Header;

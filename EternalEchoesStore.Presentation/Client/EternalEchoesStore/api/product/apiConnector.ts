@@ -1,22 +1,21 @@
-﻿import {ProductDto} from "../models/productDto.ts";
+﻿import {ProductDto} from "@/types/productDto";
 import axios, {AxiosResponse} from "axios";
-import {GetProductsResponse} from "../models/getProductsResponse.ts";
-import {API_BASE_URL} from "../../config.ts";
-import {GetProductByIdResponse} from "../models/getProductByIdResponse.ts";
+import {GetProductsResponse} from "@/types/getProductsResponse";
+import {API_BASE_URL} from "@/config";
+import {GetProductByIdResponse} from "@/types/getProductByIdResponse";
 
 const apiConnector = {
-    getProduct: async (): Promise<ProductDto[]> => {
-            const response: AxiosResponse<GetProductsResponse> = await axios.get(`${API_BASE_URL}/EternalEchoesStore`);
+    getProduct: async () => {
+        const response = await fetch(`${API_BASE_URL}/EternalEchoesStore`, {
+            next: { revalidate: 10 }, 
+        });
 
-            if (response.data && Array.isArray(response.data.productDtos)) {
-                return response.data.productDtos.map(product => ({
-                    ...product,
-                    createdAt: product.createdAt?.slice(0, 10) ?? ""
-                }));
-            } else {
-                console.error('Invalid data format:', response.data);
-                return []; 
-            }
+        if (!response.ok) {
+            throw new Error("Failed to fetch products");
+        }
+
+        const data = await response.json();
+        return data.productDtos ?? [];
     },
 
 
