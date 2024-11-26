@@ -5,7 +5,7 @@ namespace EternalEchoesStore.Infrastructure.DbContextInfrastructure;
 
 public class UserDbContext : DbContext
 {
-    public UserDbContext(DbContextOptions options) : base(options)
+    public UserDbContext(DbContextOptions<UserDbContext> options) : base(options)
     {
         
     }

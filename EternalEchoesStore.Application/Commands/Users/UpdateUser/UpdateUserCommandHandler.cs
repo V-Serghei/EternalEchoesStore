@@ -20,7 +20,7 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Unit>
             .FirstOrDefaultAsync(x =>x.Id==request.Id, cancellationToken);
         if (userToUpdate is null)
         {
-            throw new NotFoundException($"{nameof(UserDb)} with {nameof(UserDb.Id)}: {request.Id}"
+            throw new ArgumentException($"{nameof(UserDb)} with {nameof(UserDb.Id)}: {request.Id}"
                                         + $" was not found in database");
         }
 

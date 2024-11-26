@@ -2,8 +2,9 @@
 import {UserDto} from "../../models/userDto.ts";
 import ApiConnector from "../../api/apiConnector.ts";
 import {Button, Container} from "semantic-ui-react";
-import ProductTableItem from "../product/ProductTableItem.tsx";
+
 import {NavLink} from "react-router-dom";
+import UserTableItem from "./UserTableItem.tsx";
 
 export default function UserTable()
 {
@@ -12,15 +13,19 @@ export default function UserTable()
     
     useEffect(()=> {
         const fetchData = async () => {
-         const fetchedUsers = await ApiConnector.getUser();
-         setUsers(fetchedUsers);
-        }
-        fetchData();
+            try {
+                const fetchedUsers = await ApiConnector.getUser();
+                setUsers(fetchedUsers);
+            }
+            catch (error) {
+            console.log('Error fetching product: ', error);
+            }};
+        fetchData().then(r => r);
     },[]);    
     
     return (
         <>
-            <Container>
+            <Container className="container-style">
                 <table className="ui inverted table">
                     <thead style={{textAlign: "center"}}>
                     <tr>
@@ -33,13 +38,13 @@ export default function UserTable()
                     </tr>
                     </thead>
                     <tbody>
-                    {users.length !== 0 && (
-                        users.map((user, index) => (
-                            <UserTableItem key={index} product={user}/>
+                    {
+                        users.length !== 0 && (
+                        users.map((user,index) => (
+                            <UserTableItem key={index} user={user}/>
                         ))
                     )}
                     </tbody>
-
                 </table>
                 <Button as={NavLink} to="createUser" floated='right' type='button' content='Create User'
                         positive/>
