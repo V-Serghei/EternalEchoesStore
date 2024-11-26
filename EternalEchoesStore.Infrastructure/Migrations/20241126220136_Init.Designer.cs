@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EternalEchoesStore.Infrastructure.Migrations
 {
     [DbContext(typeof(ProductDbContext))]
-    [Migration("20241007084114_Init")]
+    [Migration("20241126220136_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace EternalEchoesStore.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("EternalEchoesStore.Domain.Entities.ProductDb.ProductDb", b =>
+            modelBuilder.Entity("EternalEchoesStore.Domain.Entities.ProductDb.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -48,9 +48,24 @@ namespace EternalEchoesStore.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("NumberOfRatings")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<double>("Rating")
+                        .HasColumnType("double precision");
+
                     b.Property<string>("SubCategory")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<double>("SumOfRatings")
+                        .HasColumnType("double precision");
 
                     b.Property<string>("Title")
                         .IsRequired()

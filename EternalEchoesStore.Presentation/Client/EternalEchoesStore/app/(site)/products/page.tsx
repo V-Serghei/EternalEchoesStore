@@ -22,6 +22,11 @@ const ProductsPage = () => {
     }, []);
 
     return (
+        <>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
         <section className="py-20">
             <div className="container mx-auto grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {products.map((product) => (
@@ -29,6 +34,7 @@ const ProductsPage = () => {
                 ))}
             </div>
         </section>
+        </>
     );
 };
 

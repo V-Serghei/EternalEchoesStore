@@ -13,6 +13,9 @@ const AddProductPage = () => {
         imageUrl: '',
         category: '',
         subCategory: '',
+        rating: 0,
+        price: 0,
+        quantity: 0,
     });
 
     const [loading, setLoading] = useState(false);
@@ -39,6 +42,9 @@ const AddProductPage = () => {
                 imageUrl: '',
                 category: '',
                 subCategory: '',
+                rating: 0,
+                price: 0,
+                quantity: 0,
             });
         } catch (error) {
             console.error(error);
@@ -132,7 +138,34 @@ const AddProductPage = () => {
                             required
                         />
                     </div>
-
+                    <div>
+                        <label htmlFor="category" className="block text-sm font-medium text-gray-700">
+                            Цена
+                        </label>
+                        <input
+                            type="number"
+                            id="price"
+                            name="price"
+                            value={formData.price}
+                            onChange={handleChange}
+                            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="category" className="block text-sm font-medium text-gray-700">
+                            Количество
+                        </label>
+                        <input
+                            type="number"
+                            id="quantity"
+                            name="quantity"
+                            value={formData.quantity}
+                            onChange={handleChange}
+                            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+                            required
+                        />
+                    </div>
                     <button
                         type="submit"
                         className="w-full bg-blue-600 text-white py-2 rounded-md shadow hover:bg-blue-700"
