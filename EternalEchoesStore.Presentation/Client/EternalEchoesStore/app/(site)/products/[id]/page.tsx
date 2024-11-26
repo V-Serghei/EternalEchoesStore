@@ -54,7 +54,7 @@ const ProductDetailsPage = ({ params }: ProductDetailsProps) => {
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                         <div className="flex items-center justify-center">
                             <img
-                                src={product.imageUrl || "/placeholder.png"} // URL изображения продукта
+                                src={product.imageUrl || "/placeholder.png"} 
                                 alt={product.title}
                                 className="rounded-md shadow-lg"
                             />
@@ -73,7 +73,7 @@ const ProductDetailsPage = ({ params }: ProductDetailsProps) => {
                             </div>
                             <button
                                 className="bg-blue-600 text-white py-2 px-4 rounded-md shadow hover:bg-blue-700"
-                                onClick={() => router.push("/products")} // Навигация на предыдущую страницу
+                                onClick={() => router.push("/products")} 
                             >
                                 Назад к продуктам
                             </button>
