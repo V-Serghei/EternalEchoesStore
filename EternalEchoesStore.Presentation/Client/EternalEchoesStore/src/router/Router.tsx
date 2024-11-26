@@ -21,11 +21,11 @@ export const routes: RouteObject[] = [
             },
             {
                 path: 'createProduct1',
-                element: <AddProductForm />, // Страница для добавления продукта
+                element: <AddProductForm />,
             },
             {
                 path: 'viewProduct/:id',
-                element: <ViewProduct />, // Страница для просмотра продукта
+                element: <ViewProduct />, 
             },
             {
                path: 'profile',

@@ -1,4 +1,4 @@
-﻿import {ProductDto} from "./productDto.ts";
+﻿import {ProductDto} from "./productDto";
 
 export interface GetProductsResponse {
     productDtos : ProductDto[];

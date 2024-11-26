@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import {useEffect} from 'react';
 import ProductTable from "../components/product/ProductTable.tsx";
 import {setupErrorHandlingInterceptor} from "../interceptors/axiosInterceptor.tsx";
 import {Outlet, useLocation} from "react-router-dom";
