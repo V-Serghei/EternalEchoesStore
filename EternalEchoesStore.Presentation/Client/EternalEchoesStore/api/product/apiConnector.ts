@@ -6,7 +6,7 @@ import {GetProductByIdResponse} from "@/types/getProductByIdResponse";
 
 const apiConnector = {
     getProduct: async () => {
-        const response = await fetch(`${API_BASE_URL}/EternalEchoesStore`, {
+        const response = await fetch(`${API_BASE_URL}/EternalEchoesStore/product`, {
             next: { revalidate: 10 }, 
         });
 
