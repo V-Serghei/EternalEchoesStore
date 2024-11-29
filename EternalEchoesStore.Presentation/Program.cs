@@ -1,6 +1,7 @@
 using EternalEchoesStore.Application;
 using EternalEchoesStore.Infrastructure.DbContextInfrastructure;
 using EternalEchoesStore.Presentation.Handlers;
+using EternalEchoesStore.Presentation.Middlewares;
 using EternalEchoesStore.Presentation.Modules;
 using Microsoft.EntityFrameworkCore;
 
@@ -43,5 +44,8 @@ app.UseCors("CorsPolicy");
 app.UseHttpsRedirection();
 app.AddProductEndpoints();
 app.AddUsersEndpoints();
+
+app.UseMiddleware<JwtMiddleware>();
+
 
 app.Run();
