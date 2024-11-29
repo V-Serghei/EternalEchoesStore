@@ -7,7 +7,10 @@ import { useEffect, useState } from "react";
 
 import ThemeToggler from "./ThemeToggler";
 import menuData from "./menuData";
-
+import {FiEdit2} from "react-icons/fi";
+import {router} from "next/client";
+import {CgFileAdd} from "react-icons/cg";
+import { useRouter } from "next/navigation";
 const Header = () => {
   const [navigationOpen, setNavigationOpen] = useState(false);
   const [dropdownToggler, setDropdownToggler] = useState(false);
@@ -17,7 +20,7 @@ const Header = () => {
 
   const pathUrl = usePathname();
   const [hideTimeout, setHideTimeout] = useState<number | null>(null);
-
+  const router = useRouter();
   
   const handleMouseEnter = (setOpen: (value: boolean) => void) => {
     if (hideTimeout) {
@@ -159,7 +162,15 @@ const Header = () => {
                 ))}
               </ul>
             </nav>
+            <div className="mt-7 flex items-center gap-6 xl:mt-0">
+              <button
+                  onClick={() => router.push(`/products/add`)}
+                  className="flex items-center gap-2 bg-gray-200 text-gray-700 py-2 px-4 rounded-md shadow hover:bg-gray-300"
+              >
+                <CgFileAdd size={20}/>
 
+              </button>
+            </div>
             <div className="mt-7 flex items-center gap-6 xl:mt-0">
               <ThemeToggler/>
 
@@ -222,7 +233,7 @@ const Header = () => {
         </div>
 
       </header>
-);
+  );
 };
 
 export default Header;

@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import apiConnector from "@/api/product/apiConnector";
 import { ProductDto } from "@/types/productDto";
-import { FiEdit2 } from "react-icons/fi"; // Иконка редактирования
-import { FaStar } from "react-icons/fa"; // Иконки звезд
+import {FiDelete, FiEdit2} from "react-icons/fi"; // Иконка редактирования
+import { FaStar } from "react-icons/fa";
+import {FcDeleteDatabase} from "react-icons/fc"; // Иконки звезд
 
 interface ProductDetailsProps {
     params: { id: string };
@@ -52,7 +53,15 @@ const ProductDetailsPage = ({ params }: ProductDetailsProps) => {
             setIsSubmitting(false);
         }
     };
-
+    
+    const handleDelete = async () => {
+        try {
+            await apiConnector.deleteProduct(Number(id));
+            router.push("/products");
+        } catch (error) {
+            console.error("Error deleting product:", error);
+        }
+    }
     if (loading) {
         return <p className="text-center text-lg">Загрузка...</p>;
     }
@@ -88,8 +97,20 @@ const ProductDetailsPage = ({ params }: ProductDetailsProps) => {
                                     onClick={() => router.push(`/products/edit/${id}`)}
                                     className="flex items-center gap-2 bg-gray-200 text-gray-700 py-2 px-4 rounded-md shadow hover:bg-gray-300"
                                 >
-                                    <FiEdit2 size={20} /> {/* Иконка карандашика */}
+                                    <FiEdit2 size={20}/> {/* Иконка карандашика */}
                                     Редактировать
+                                </button>
+                            </div>
+                            <div className="flex justify-between items-center mb-6">
+                                <h1 className="text-4xl font-bold">{product.title}</h1>
+                                <button
+                                    onClick={() => {handleDelete();
+                                        router.push("/products");
+                                    }}
+                                    className="flex items-center gap-2 bg-gray-200 text-gray-700 py-2 px-4 rounded-md shadow hover:bg-gray-300"
+                                >
+                                    <FcDeleteDatabase size={20}/> {/* Иконка карандашика */}
+                                    Удалить
                                 </button>
                             </div>
                             <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">{product.description}</p>
@@ -130,7 +151,7 @@ const ProductDetailsPage = ({ params }: ProductDetailsProps) => {
                                                     : "text-gray-400"
                                             }`}
                                         >
-                                            <FaStar size={24} />
+                                            <FaStar size={24}/>
                                         </button>
                                     ))}
                                 </div>

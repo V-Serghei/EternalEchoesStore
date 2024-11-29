@@ -24,7 +24,7 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, int>
             Photo = request.Photo,
             CreatedAt = DateTime.Now.ToUniversalTime()
         };
-        await _userDbContext.Users.AddAsync(user, cancellationToken);
+        await _userDbContext.UserDb.AddAsync(user, cancellationToken);
         await _userDbContext.SaveChangesAsync(cancellationToken);
         return user.Id;
     }

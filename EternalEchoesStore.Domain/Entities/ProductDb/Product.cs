@@ -10,8 +10,7 @@ public class Product:BaseEntity
     public decimal Price { get; set; }
     public int Quantity { get; set; }
     public double Rating { get; set; }
-    public double SumOfRatings { get; set; } 
-    public int NumberOfRatings { get; set; }
+    
     
     
     

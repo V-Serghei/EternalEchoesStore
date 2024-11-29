@@ -30,12 +30,17 @@ const ProductItem = ({ product }: { product: ProductDto }) => {
                 <h3 className="mt-4 text-lg font-semibold text-black dark:text-white">
                     <Link href={`/products/${id}`}>{title}</Link>
                 </h3>
-                <p className="mt-2 text-sm text-gray-600 dark:text-gray-300 line-clamp-3">{description}</p>
+                <p className="mt-2 text-sm text-gray-600 dark:text-gray-300 line-clamp-3">
+                    {description?.length > 50 ? `${description.slice(0, 50)}...` : description}
+                </p>
+
 
                 <div className="mt-4 flex items-center justify-between">
                     <p className="text-lg font-bold text-blue-600">${price?.toFixed(2)}</p>
                     <p className="text-sm text-gray-600">
-                        Рейтинг: <span className="font-semibold">{rating ?? "N/A"}</span>
+                        Рейтинг: <span className="font-semibold">
+                                  {rating !== null && rating !== undefined ? rating.toFixed(2) : "N/A"}
+                                </span>
                     </p>
                 </div>
                 <p className="mt-1 text-sm text-gray-500">

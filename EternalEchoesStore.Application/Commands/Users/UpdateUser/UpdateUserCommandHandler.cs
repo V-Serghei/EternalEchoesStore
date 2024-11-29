@@ -16,7 +16,7 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Unit>
     }
     public async Task<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
     {
-        var userToUpdate = await _userDbContext.Users
+        var userToUpdate = await _userDbContext.UserDb
             .FirstOrDefaultAsync(x =>x.Id==request.Id, cancellationToken);
         if (userToUpdate is null)
         {
@@ -30,7 +30,7 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Unit>
         userToUpdate.Password = request.Password;
         userToUpdate.Photo = request.Photo;
         
-        _userDbContext.Users.Update(userToUpdate);
+        _userDbContext.UserDb.Update(userToUpdate);
         
         await _userDbContext.SaveChangesAsync(cancellationToken);
         

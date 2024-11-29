@@ -9,5 +9,5 @@ public class UserDbContext : DbContext
     {
         
     }
-    public DbSet<UserDb> Users { get; set; }
+    public DbSet<UserDb> UserDb { get; set; }
 }
