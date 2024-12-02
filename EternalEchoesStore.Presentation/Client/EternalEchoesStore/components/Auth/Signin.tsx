@@ -2,14 +2,56 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import React, {useEffect, useState} from "react";
+import apiConnector from "@/api/user/apiConnector";
+import {UserDto} from "@/types/userDto";
+import {useRouter} from "next/navigation";
 
 const Signin = () => {
-  const [data, setData] = useState({
-    email: "",
-    password: "",
+  const router = useRouter();
+  const [user, setUser] = useState<UserDto>({
+    id: undefined,
+    name: '',
+    surname: '',
+    email: '',
+    password: '',
+    photo: '',
+    createdAt: undefined,
   });
 
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage("");
+
+    try {
+      await apiConnector.login(user.email, user.password);
+      setMessage("Пользователь успешно добавлен!");
+      setUser({
+        id: undefined,
+        name: '',
+        surname: '',
+        email: '',
+        password: '',
+        photo: '',
+        createdAt: undefined,
+      });
+      router.push('/products');
+    } catch (error) {
+      console.error(error);
+      setMessage("Произошла ошибка при добавлении пользователя.");
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <>
       {/* <!-- ===== SignIn Form Start ===== --> */}
@@ -121,14 +163,14 @@ const Signin = () => {
               <span className="dark:bg-stroke-dark hidden h-[1px] w-full max-w-[200px] bg-stroke dark:bg-strokedark sm:block"></span>
             </div>
 
-            <form>
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div className="mb-7.5 flex flex-col gap-7.5 lg:mb-12.5 lg:flex-row lg:justify-between lg:gap-14">
                 <input
                   type="text"
                   placeholder="Email"
                   name="email"
-                  value={data.email}
-                  onChange={(e) => setData({ ...data, email: e.target.value })}
+                  value={user.email}
+                  onChange={handleChange}
                   className="w-full border-b border-stroke !bg-white pb-3.5 focus:border-waterloo focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:!bg-black dark:focus:border-manatee dark:focus:placeholder:text-white lg:w-1/2"
                 />
 
@@ -136,10 +178,8 @@ const Signin = () => {
                   type="password"
                   placeholder="Password"
                   name="password"
-                  value={data.password}
-                  onChange={(e) =>
-                    setData({ ...data, password: e.target.value })
-                  }
+                  value={user.password}
+                  onChange={handleChange}
                   className="w-full border-b border-stroke !bg-white pb-3.5 focus:border-waterloo focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:!bg-black dark:focus:border-manatee dark:focus:placeholder:text-white lg:w-1/2"
                 />
               </div>
@@ -182,11 +222,13 @@ const Signin = () => {
                   </a>
                 </div>
 
-                <button
-                  aria-label="login with email and password"
+                <button 
+                    type="submit"
+                  aria-label="signin with email and password"
                   className="inline-flex items-center gap-2.5 rounded-full bg-black px-6 py-3 font-medium text-white duration-300 ease-in-out hover:bg-blackho dark:bg-btndark dark:hover:bg-blackho"
+                    disabled={loading}
                 >
-                  Log in
+                  {loading ? "Sign In..." : "Sign In"}
                   <svg
                     className="fill-white"
                     width="14"

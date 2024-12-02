@@ -1,6 +1,7 @@
 ﻿using EternalEchoesStore.Application.Commands.Users.CreateUser;
 using EternalEchoesStore.Application.Commands.Users.DeleteUser;
 using EternalEchoesStore.Application.Commands.Users.UpdateUser;
+using EternalEchoesStore.Application.Commands.Users.VerificationUser;
 using EternalEchoesStore.Application.Queries.Users.GetUser;
 using EternalEchoesStore.Application.Queries.Users.GetUserById;
 using EternalEchoesStore.Contracts.Requests.Users;
@@ -63,5 +64,19 @@ public static class UsersModule
             return Results.Ok(result);
             
         }).WithTags("Users");
+        
+        //Verification User - Login
+        app.MapPut("/api/EternalEchoesStore/user/",
+            async (IMediator mediator, VerificationUserRequest verificationUserRequest, 
+                CancellationToken ct) =>
+            {
+                var command = new VerificationUserCommand
+                (
+                    verificationUserRequest.Email,
+                    verificationUserRequest.Password
+                );
+                var result = await mediator.Send(command, ct);
+                return Results.Ok(result);
+            }).WithTags("Users");
     }
 }

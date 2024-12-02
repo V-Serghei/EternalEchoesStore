@@ -220,7 +220,7 @@ const Header = () => {
                       <Link href="/profile/settings">Настройки</Link>
                     </li>
                     <li>
-                      <Link href="/profile/account">Личный кабинет</Link>
+                      <Link href="/profile">Личный кабинет</Link>
                     </li>
                     <li>
                       <Link href="/profile/orders">Покупки</Link>
