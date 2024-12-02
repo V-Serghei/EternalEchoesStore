@@ -65,6 +65,7 @@ public static class UsersModule
             
         }).WithTags("Users");
         
+        //Verification User - Login
         app.MapPut("/api/EternalEchoesStore/user/",
             async (IMediator mediator, VerificationUserRequest verificationUserRequest, 
                 CancellationToken ct) =>
