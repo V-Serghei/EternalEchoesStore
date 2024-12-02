@@ -1,5 +1,5 @@
-﻿using EternalEchoesStore.Domain.Entities.UserDb;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using EternalEchoesStore.Domain.Entities.UserDb;
 
 namespace EternalEchoesStore.Infrastructure.DbContextInfrastructure;
 
@@ -7,7 +7,22 @@ public class UserDbContext : DbContext
 {
     public UserDbContext(DbContextOptions<UserDbContext> options) : base(options)
     {
-        
     }
+
     public DbSet<UserDb> UserDb { get; set; }
+    public DbSet<UserSession> UserSessions { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        
+        modelBuilder.Entity<UserSession>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+
+            entity.HasOne(e => e.User) 
+                .WithMany(u => u.UserSessions) 
+                .HasForeignKey(e => e.UserId) 
+                .OnDelete(DeleteBehavior.Cascade); 
+        });
+    }
 }

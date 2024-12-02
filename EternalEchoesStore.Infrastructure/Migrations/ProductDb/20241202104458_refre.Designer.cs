@@ -3,6 +3,7 @@ using System;
 using EternalEchoesStore.Infrastructure.DbContextInfrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EternalEchoesStore.Infrastructure.Migrations.ProductDb
 {
     [DbContext(typeof(ProductDbContext))]
-    partial class ProductDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241202104458_refre")]
+    partial class refre
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,48 +24,6 @@ namespace EternalEchoesStore.Infrastructure.Migrations.ProductDb
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("EternalEchoesStore.Domain.Entities.ProductDb.CartItems", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("numeric");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("numeric");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("CartItems");
-                });
 
             modelBuilder.Entity("EternalEchoesStore.Domain.Entities.ProductDb.Product", b =>
                 {
@@ -192,66 +153,16 @@ namespace EternalEchoesStore.Infrastructure.Migrations.ProductDb
                     b.ToTable("UserDb");
                 });
 
-            modelBuilder.Entity("EternalEchoesStore.Domain.Entities.UserDb.UserSession", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("ExpiresAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("JwtToken")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserSession");
-                });
-
-            modelBuilder.Entity("EternalEchoesStore.Domain.Entities.ProductDb.CartItems", b =>
-                {
-                    b.HasOne("EternalEchoesStore.Domain.Entities.ProductDb.Product", "Product")
-                        .WithMany("CartItems")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EternalEchoesStore.Domain.Entities.UserDb.UserDb", "User")
-                        .WithMany("CartItems")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("EternalEchoesStore.Domain.Entities.ProductDb.ProductDbUserDb", b =>
                 {
                     b.HasOne("EternalEchoesStore.Domain.Entities.ProductDb.Product", "Product")
-                        .WithMany("UserReviews")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("EternalEchoesStore.Domain.Entities.UserDb.UserDb", "User")
-                        .WithMany("ProductReviews")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -259,33 +170,6 @@ namespace EternalEchoesStore.Infrastructure.Migrations.ProductDb
                     b.Navigation("Product");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("EternalEchoesStore.Domain.Entities.UserDb.UserSession", b =>
-                {
-                    b.HasOne("EternalEchoesStore.Domain.Entities.UserDb.UserDb", "User")
-                        .WithMany("UserSessions")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("EternalEchoesStore.Domain.Entities.ProductDb.Product", b =>
-                {
-                    b.Navigation("CartItems");
-
-                    b.Navigation("UserReviews");
-                });
-
-            modelBuilder.Entity("EternalEchoesStore.Domain.Entities.UserDb.UserDb", b =>
-                {
-                    b.Navigation("CartItems");
-
-                    b.Navigation("ProductReviews");
-
-                    b.Navigation("UserSessions");
                 });
 #pragma warning restore 612, 618
         }
