@@ -3,7 +3,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using EternalEchoesStore.Application.Commands.Users.CreateUser;
+using EternalEchoesStore.Application.Helpers;
 using EternalEchoesStore.Domain.Entities.UserDb;
+using EternalEchoesStore.Domain.Enums.Role;
 using EternalEchoesStore.Infrastructure.DbContextInfrastructure;
 using MediatR;
 using Microsoft.Extensions.Configuration;
@@ -12,11 +14,13 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, strin
 {
     private readonly UserDbContext _userDbContext;
     private readonly IConfiguration _configuration;
+    private readonly GenerateJwtToken _generateJwtToken;
 
     public CreateUserCommandHandler(UserDbContext userDbContext, IConfiguration configuration)
     {
         _userDbContext = userDbContext;
         _configuration = configuration;
+        _generateJwtToken = new GenerateJwtToken(_userDbContext, _configuration);
     }
 
     public async Task<string> Handle(CreateUserCommand request, CancellationToken cancellationToken)
@@ -28,36 +32,15 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, strin
             Email = request.Email,
             Password = HashPassword(request.Password), 
             Photo = request.Photo,
-            CreatedAt = DateTime.UtcNow
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = DateTime.UtcNow,
+            Role = Role.Admin,
         };
 
         await _userDbContext.UserDb.AddAsync(user, cancellationToken);
         await _userDbContext.SaveChangesAsync(cancellationToken);
 
-        return GenerateJwtToken(user);
-    }
-
-    private string GenerateJwtToken(UserDb user)
-    {
-        var claims = new[]
-        {
-            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            new Claim(JwtRegisteredClaimNames.Email, user.Email),
-            new Claim("Name", user.Name),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-        };
-
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"] ?? string.Empty));
-        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-        var token = new JwtSecurityToken(
-            issuer: _configuration["Jwt:Issuer"],
-            audience: _configuration["Jwt:Audience"],
-            claims: claims,
-            expires: DateTime.UtcNow.AddDays(7), 
-            signingCredentials: creds);
-
-        return new JwtSecurityTokenHandler().WriteToken(token);
+        return _generateJwtToken.GenerateJwtTokenHelpers(user);
     }
 
     private string HashPassword(string password)

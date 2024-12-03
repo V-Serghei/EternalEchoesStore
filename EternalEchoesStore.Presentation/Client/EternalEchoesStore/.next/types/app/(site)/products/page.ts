@@ -1,4 +1,4 @@
-// File: D:\Projects\pd\EternalEchoesStore\EternalEchoesStore.Presentation\Client\EternalEchoesStore\app\(site)\products\page.tsx
+// File: D:\WebProject\EternalEchoesStore\EternalEchoesStore.Presentation\Client\EternalEchoesStore\app\(site)\products\page.tsx
 import * as entry from '../../../../../app/(site)/products/page.js'
 import type { ResolvingMetadata } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

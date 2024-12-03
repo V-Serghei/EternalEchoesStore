@@ -128,13 +128,16 @@ namespace EternalEchoesStore.Infrastructure.Migrations.ProductDb
 
             modelBuilder.Entity("EternalEchoesStore.Domain.Entities.ProductDb.ProductDbUserDb", b =>
                 {
-                    b.Property<int>("ProductId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("OrderCount")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ProductId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Review")
@@ -143,10 +146,15 @@ namespace EternalEchoesStore.Infrastructure.Migrations.ProductDb
                     b.Property<DateTime>("ReviewDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
                     b.Property<double>("UserRating")
                         .HasColumnType("double precision");
 
-                    b.HasKey("ProductId", "UserId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
 
                     b.HasIndex("UserId");
 
@@ -179,6 +187,9 @@ namespace EternalEchoesStore.Infrastructure.Migrations.ProductDb
                     b.Property<string>("Photo")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Surname")
                         .IsRequired()

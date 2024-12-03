@@ -89,30 +89,32 @@ const ProductDetailsPage = ({ params }: ProductDetailsProps) => {
                             />
                         </div>
 
-                        {/* Детали */}
                         <div>
-                            <div className="flex justify-between items-center mb-6">
+                            <div className="flex justify-between right mb-6">
                                 <h1 className="text-4xl font-bold">{product.title}</h1>
-                                <button
-                                    onClick={() => router.push(`/products/edit/${id}`)}
-                                    className="flex items-center gap-2 bg-gray-200 text-gray-700 py-2 px-4 rounded-md shadow hover:bg-gray-300"
-                                >
-                                    <FiEdit2 size={20}/> {/* Иконка карандашика */}
-                                    Редактировать
-                                </button>
+                                <div className="flex flex-col items-end gap-4 mb-6">
+                                    <button
+                                        onClick={() => router.push(`/products/edit/${id}`)}
+                                        className="flex items-center gap-2 bg-gray-200 text-gray-700 py-2 px-4 rounded-md shadow hover:bg-gray-300"
+                                    >
+                                        <FiEdit2 size={20} /> {/* Иконка редактирования */}
+                                        Редактировать
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            handleDelete();
+                                            router.push("/products");
+                                        }}
+                                        className="flex items-center gap-2 bg-gray-200 text-gray-700 py-2 px-4 rounded-md shadow hover:bg-gray-300"
+                                    >
+                                        <FcDeleteDatabase size={20} /> {/* Иконка удаления */}
+                                        Удалить
+                                    </button>
+                                </div>
+
+
                             </div>
-                            <div className="flex justify-between items-center mb-6">
-                                <h1 className="text-4xl font-bold">{product.title}</h1>
-                                <button
-                                    onClick={() => {handleDelete();
-                                        router.push("/products");
-                                    }}
-                                    className="flex items-center gap-2 bg-gray-200 text-gray-700 py-2 px-4 rounded-md shadow hover:bg-gray-300"
-                                >
-                                    <FcDeleteDatabase size={20}/> {/* Иконка карандашика */}
-                                    Удалить
-                                </button>
-                            </div>
+                            
                             <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">{product.description}</p>
 
                             <div className="space-y-2 text-gray-700 dark:text-gray-400">
@@ -121,6 +123,9 @@ const ProductDetailsPage = ({ params }: ProductDetailsProps) => {
                                 </p>
                                 <p>
                                     <strong>Подкатегория:</strong> {product.subCategory ?? "Нет данных"}
+                                </p>
+                                <p>
+                                    <strong>Подкатегория 2:</strong> {product.subSubCategory ?? "Нет данных"}
                                 </p>
                                 <p>
                                     <strong>Цена:</strong> ${product.price?.toFixed(2) ?? "N/A"}
@@ -133,6 +138,15 @@ const ProductDetailsPage = ({ params }: ProductDetailsProps) => {
                                 </p>
                                 <p>
                                     <strong>Дата добавления:</strong> {product.createdAt ?? "Неизвестно"}
+                                </p>
+                                <p>
+                                    <strong>Доступно:</strong> {product.isAvailable ? "Да" : "Нет"}
+                                </p>
+                                <p>
+                                    <strong>Скидка:</strong> {product.discount ? `${product.discount}%` : "Нет данных"}
+                                </p>
+                                <p>
+                                    <strong>SKU:</strong> {product.SKU ?? "Нет данных"}
                                 </p>
                             </div>
 
@@ -173,7 +187,7 @@ const ProductDetailsPage = ({ params }: ProductDetailsProps) => {
                 </div>
             </section>
         </>
-    );
+);
 };
 
 export default ProductDetailsPage;

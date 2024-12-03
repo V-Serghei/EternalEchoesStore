@@ -18,8 +18,8 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
     modelBuilder.Entity<ProductDbUserDb>(entity =>
     {
-        entity.HasKey(e => new { e.ProductId, e.UserId });
-
+        entity.HasKey(e => e.Id );
+    
         entity.HasOne(e => e.Product)
             .WithMany(p => p.UserReviews)
             .HasForeignKey(e => e.ProductId)

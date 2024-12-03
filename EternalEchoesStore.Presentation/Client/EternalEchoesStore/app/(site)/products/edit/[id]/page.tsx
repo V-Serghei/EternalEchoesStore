@@ -164,6 +164,55 @@ const EditProductPage = ({ params }: EditProductProps) => {
                             />
                         </div>
 
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Подкатегория 2</label>
+                            <input
+                                type="text"
+                                name="subSubCategory"
+                                value={product.subSubCategory || ""}
+                                onChange={handleChange}
+                                className="w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Доступность</label>
+                            <select
+                                name="isAvailable"
+                                value={product.isAvailable ? "true" : "false"}
+                                onChange={(e) =>
+                                    setProduct((prev) =>
+                                        prev ? {...prev, isAvailable: e.target.value === "true"} : prev
+                                    )
+                                }
+                                className="w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
+                            >
+                                <option value="true">Доступен</option>
+                                <option value="false">Недоступен</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Скидка (%)</label>
+                            <input
+                                type="number"
+                                name="discount"
+                                value={product.discount || ""}
+                                onChange={handleChange}
+                                className="w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">SKU</label>
+                            <input
+                                type="text"
+                                name="SKU"
+                                value={product.SKU || ""}
+                                onChange={handleChange}
+                                className="w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
+                            />
+                        </div>
 
                         <button
                             type="submit"
@@ -175,6 +224,7 @@ const EditProductPage = ({ params }: EditProductProps) => {
                             {saving ? "Сохранение..." : "Сохранить изменения"}
                         </button>
                     </form>
+
                 </div>
             </section>
         </>

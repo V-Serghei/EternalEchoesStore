@@ -15,8 +15,12 @@ const apiConnector = {
         const data = await response.json();
         return data.userDtos ?? [];
     },
-    createUser: async (user: UserDto): Promise<void> => {
-        await axios.post<number>(`${API_BASE_URL}/EternalEchoesStore/user`, user);
+    createUser: async (user: UserDto): Promise<string> => {
+        const response = await axios.post(`${API_BASE_URL}/EternalEchoesStore/user`, user);
+        const token = response.data.token;
+        localStorage.setItem("authToken", token);
+        return token;
+        
     },
 
     editUser: async (user: UserDto): Promise<void> => {

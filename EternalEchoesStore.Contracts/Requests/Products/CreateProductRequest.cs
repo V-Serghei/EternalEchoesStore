@@ -2,4 +2,5 @@
 
 public record CreateProductRequest(string Title, string Description,
     string ImageUrl, string Category, string SubCategory, decimal Price, 
-    int Quantity, double Rating);
+    int Quantity, double Rating,string SubSubCategory,
+    bool IsAvailable,decimal Discount,string SKU);
