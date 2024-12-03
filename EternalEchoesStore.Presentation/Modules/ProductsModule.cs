@@ -77,7 +77,7 @@ public static class ProductsModule
             return Results.Ok(result);
         }).WithTags("Products");
 
-        app.MapPost("/api/EternalEchoesStore/product/{id}/rating", [Authorize(Policy = "UserOnly")] async (IMediator mediator, int id, int rating, CancellationToken ct) =>
+        app.MapPost("/api/EternalEchoesStore/product/{id}/rating",  async (IMediator mediator, int id, int rating, CancellationToken ct) =>
         {
             var command = new UpdateProductRatingCommand(id, rating);
             var result = await mediator.Send(command, ct);

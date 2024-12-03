@@ -97,7 +97,7 @@ const ProductDetailsPage = ({ params }: ProductDetailsProps) => {
                                         onClick={() => router.push(`/products/edit/${id}`)}
                                         className="flex items-center gap-2 bg-gray-200 text-gray-700 py-2 px-4 rounded-md shadow hover:bg-gray-300"
                                     >
-                                        <FiEdit2 size={20} /> {/* Иконка редактирования */}
+                                        <FiEdit2 size={20}/> {/* Иконка редактирования */}
                                         Редактировать
                                     </button>
                                     <button
@@ -107,15 +107,17 @@ const ProductDetailsPage = ({ params }: ProductDetailsProps) => {
                                         }}
                                         className="flex items-center gap-2 bg-gray-200 text-gray-700 py-2 px-4 rounded-md shadow hover:bg-gray-300"
                                     >
-                                        <FcDeleteDatabase size={20} /> {/* Иконка удаления */}
+                                        <FcDeleteDatabase size={20}/> {/* Иконка удаления */}
                                         Удалить
                                     </button>
                                 </div>
 
 
                             </div>
-                            
-                            <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">{product.description}</p>
+
+                            <p className="text-lg text-gray-700 dark:text-gray-300 mb-4 break-words">
+                                {product.description}
+                            </p>
 
                             <div className="space-y-2 text-gray-700 dark:text-gray-400">
                                 <p>
@@ -187,7 +189,7 @@ const ProductDetailsPage = ({ params }: ProductDetailsProps) => {
                 </div>
             </section>
         </>
-);
+    );
 };
 
 export default ProductDetailsPage;

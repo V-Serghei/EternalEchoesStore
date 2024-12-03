@@ -1,5 +1,8 @@
 {
-  "/(site)/products/page": "app/(site)/products/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/(site)/auth/signup/page": "app/(site)/auth/signup/page.js",
+  "/(site)/products/[id]/page": "app/(site)/products/[id]/page.js",
+  "/(site)/products/edit/[id]/page": "app/(site)/products/edit/[id]/page.js",
   "/(site)/products/add/page": "app/(site)/products/add/page.js",
-  "/(site)/page": "app/(site)/page.js"
+  "/(site)/products/page": "app/(site)/products/page.js"
 }

@@ -1263,6 +1263,9 @@ video {
 .overflow-hidden {
   overflow: hidden;
 }
+.break-words {
+  overflow-wrap: break-word;
+}
 .rounded {
   border-radius: 0.25rem;
 }
