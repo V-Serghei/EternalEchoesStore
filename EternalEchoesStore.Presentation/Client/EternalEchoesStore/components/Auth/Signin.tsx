@@ -17,6 +17,8 @@ const Signin = () => {
     password: '',
     photo: '',
     createdAt: undefined,
+    token: undefined,
+    
   });
 
   const [loading, setLoading] = useState(false);
@@ -43,6 +45,7 @@ const Signin = () => {
         password: '',
         photo: '',
         createdAt: undefined,
+          token: undefined,
       });
       router.push('/products');
     } catch (error) {
@@ -52,6 +55,13 @@ const Signin = () => {
       setLoading(false);
     }
   };
+  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("authToken"));
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push('/');
+    }
+  }, [isAuthenticated, router]);
+
   return (
     <>
       {/* <!-- ===== SignIn Form Start ===== --> */}

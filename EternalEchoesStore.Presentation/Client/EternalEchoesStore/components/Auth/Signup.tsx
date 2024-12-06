@@ -7,6 +7,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {UserDto} from "@/types/userDto";
 import apiConnector from "@/api/user/apiConnector";
 import {useRouter} from "next/navigation";
+import router from "next/router";
 
 const Signup = () => {
   const router = useRouter();
@@ -19,15 +20,22 @@ const Signup = () => {
     password: '',
     photo: '',
     createdAt: undefined,
+      token: undefined,
   });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-
+  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("authToken"));
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
 
+      useEffect(() => {
+        if (isAuthenticated) {
+          router.push('/');
+        }
+      }, [isAuthenticated, router]);
+    
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -44,8 +52,12 @@ const Signup = () => {
         password: '',
         photo: '',
         createdAt: undefined,
+          token: undefined,
       });
+      window.location.reload();
       router.push('/products');
+      
+
     } catch (error) {
       console.error(error);
       setMessage("Произошла ошибка при добавлении пользователя.");

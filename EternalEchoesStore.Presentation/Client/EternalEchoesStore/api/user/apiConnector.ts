@@ -82,6 +82,7 @@ const apiConnector = {
         const authToken = localStorage.getItem("authToken");
         delete axios.defaults.headers.common["Authorization"];
         localStorage.removeItem("authToken");
+        window.location.reload();
     },
     // getAuthenticatedUser: async (): Promise<UserDto | undefined> => {
     //     const token = localStorage.getItem("authToken");

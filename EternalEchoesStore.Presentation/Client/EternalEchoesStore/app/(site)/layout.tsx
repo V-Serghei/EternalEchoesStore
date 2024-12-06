@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import ToasterContext from "../context/ToastContext";
 import React from "react";
 import useAuth from "@/components/Auth/HookAuth";
+import {AuthProvider} from "@/api/Context/AuthProvider";
 
 
 
