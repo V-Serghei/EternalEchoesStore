@@ -1,4 +1,6 @@
 ﻿namespace EternalEchoesStore.Contracts.Requests.Products;
 
 public record UpdateProductRequest( string Title, string Description,
-    string ImageUrl, string Category, string SubCategory);
+    string ImageUrl, string Category, string SubCategory, decimal Price, int Quantity, double Rating,
+    string SubSubCategory,
+    bool IsAvailable,decimal Discount,string SKU);

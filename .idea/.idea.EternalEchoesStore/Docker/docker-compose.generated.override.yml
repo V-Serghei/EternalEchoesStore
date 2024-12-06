@@ -3,7 +3,7 @@ version: "3.5"
 services:
   app:
     build:
-      context: "D:\\WebProject\\EternalEchoesStore\\EternalEchoesStore.Presentation"
+      context: "D:\\Projects\\pd\\EternalEchoesStore\\EternalEchoesStore.Presentation"
       dockerfile: "Dockerfile"
       target: "base"
     command: []
@@ -17,7 +17,7 @@ services:
     image: "eternalechoesstore.presentation:dev"
     ports: []
     volumes:
-    - "C:\\Users\\Ричи\\.nuget\\packages:/home/app/.nuget/packages"
-    - "D:\\WebProject\\EternalEchoesStore\\EternalEchoesStore.Presentation:/app:rw"
-    - "D:\\WebProject\\EternalEchoesStore:/src:rw"
+    - "C:\\Users\\admin\\.nuget\\packages:/home/app/.nuget/packages"
+    - "D:\\Projects\\pd\\EternalEchoesStore\\EternalEchoesStore.Presentation:/app:rw"
+    - "D:\\Projects\\pd\\EternalEchoesStore:/src:rw"
     working_dir: "/app"

@@ -22,6 +22,13 @@ public class CreateProductCommandHandler:IRequestHandler<CreateProductCommand,in
             Category = request.Category,
             SubCategory = request.SubCategory,
             CreatedAt = DateTime.UtcNow,
+            Price = request.Price,
+            Quantity = request.Quantity,
+            Rating = request.Rating,
+            Discount = request.Discount,
+            SKU = request.SKU,
+            SubSubCategory = request.SubSubCategory
+            
         };
         await _productDbContext.Products.AddAsync(product, cancellationToken);
         await _productDbContext.SaveChangesAsync(cancellationToken);

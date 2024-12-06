@@ -1,13 +1,72 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EternalEchoesStore app</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EternalEchoesStore app</title>
+
+  <!-- Стили -->
+  <link rel="stylesheet" href="/public/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/public/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="/public/css/magnific-popup.css">
+  <link rel="stylesheet" href="/public/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/public/css/themify-icons.css">
+  <link rel="stylesheet" href="/public/css/nice-select.css">
+  <link rel="stylesheet" href="/public/css/flaticon.css">
+  <link rel="stylesheet" href="/public/css/gijgo.css">
+  <link rel="stylesheet" href="/public/css/animate.css">
+  <link rel="stylesheet" href="/public/css/slicknav.css">
+  <link rel="stylesheet" href="/public/css/style.css">
+</head>
+<body>
+<div id="root"></div>
+<script type="module" src="/src/main.tsx"></script>
+
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+
+<!-- Скрипты -->
+<script src="/public/js/vendor/modernizr-3.5.0.min.js" defer></script>
+<script src="/public/js/vendor/jquery-1.12.4.min.js" defer></script>
+<script src="/public/js/popper.min.js" defer></script>
+<script src="/public/js/bootstrap.min.js" defer></script>
+<script src="/public/js/owl.carousel.min.js" defer></script>
+<script src="/public/js/isotope.pkgd.min.js" defer></script>
+<script src="/public/js/ajax-form.js" defer></script>
+<script src="/public/js/waypoints.min.js" defer></script>
+<script src="/public/js/jquery.counterup.min.js" defer></script>
+<script src="/public/js/imagesloaded.pkgd.min.js" defer></script>
+<script src="/public/js/scrollIt.js" defer></script>
+<script src="/public/js/jquery.scrollUp.min.js" defer></script>
+<script src="/public/js/wow.min.js" defer></script>
+<script src="/public/js/gijgo.min.js" defer></script>
+<script src="/public/js/nice-select.min.js" defer></script>
+<script src="/public/js/jquery.slicknav.min.js" defer></script>
+<script src="/public/js/jquery.magnific-popup.min.js" defer></script>
+<script src="/public/js/plugins.js" defer></script>
+<script src="/public/js/contact.js" defer></script>
+<script src="/public/js/jquery.ajaxchimp.min.js" defer></script>
+<script src="/public/js/jquery.form.js" defer></script>
+<script src="/public/js/jquery.validate.min.js" defer></script>
+<script src="/public/js/mail-script.js" defer></script>
+<script src="/public/js/main.js" defer></script>
+
+<!-- Скрипты для календаря -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    $('#datepicker').datepicker({
+      iconsLibrary: 'fontawesome',
+      icons: {
+        rightIcon: '<span class="fa fa-calendar-o"></span>'
+      }
+    });
+    $('#datepicker2').datepicker({
+      iconsLibrary: 'fontawesome',
+      icons: {
+        rightIcon: '<span class="fa fa-calendar-o"></span>'
+      }
+    });
+  });
+</script>
+</body>
 </html>
