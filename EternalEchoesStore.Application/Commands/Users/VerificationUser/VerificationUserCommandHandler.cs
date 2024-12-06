@@ -22,7 +22,8 @@ public class VerificationUserCommandHandler : IRequestHandler<VerificationUserCo
     public async Task<string> Handle(VerificationUserCommand request, CancellationToken cancellationToken)
     {
         var userToVerify = await _userDbContext.UserDb
-            .FirstOrDefaultAsync(x =>x.Email==request.Email, cancellationToken);
+            .FirstOrDefaultAsync(x =>x.Email==request.Email &&
+                                     x.Password == HashPassword(request.Password), cancellationToken);
         if (userToVerify is null)
         {
             throw new ArgumentException($"{nameof(UserDb)} with {nameof(UserDb.Id)}: {request.Email}"
@@ -43,5 +44,9 @@ public class VerificationUserCommandHandler : IRequestHandler<VerificationUserCo
 
         return token;
         
+    }
+    private string HashPassword(string password)
+    {
+        return BCrypt.Net.BCrypt.HashPassword(password);
     }
 }

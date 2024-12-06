@@ -7,9 +7,9 @@ import { ProductDto } from "@/types/productDto";
 
 const ProductsPage = () => {
     const [products, setProducts] = useState<ProductDto[]>([]);
-    const [searchTerm, setSearchTerm] = useState<string>(""); // Строка поиска
-    const [sortCriteria, setSortCriteria] = useState<string>(""); // Критерий сортировки
-    const [filteredProducts, setFilteredProducts] = useState<ProductDto[]>([]); // Отфильтрованные продукты
+    const [searchTerm, setSearchTerm] = useState<string>(""); 
+    const [sortCriteria, setSortCriteria] = useState<string>(""); 
+    const [filteredProducts, setFilteredProducts] = useState<ProductDto[]>([]); 
 
     useEffect(() => {
         const fetchProducts = async () => {
