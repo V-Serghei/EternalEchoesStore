@@ -1,7 +1,10 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using System;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using EternalEchoesStore.Application.Commands.Users.CreateUser;
 using EternalEchoesStore.Application.Helpers;
 using EternalEchoesStore.Domain.Entities.UserDb;

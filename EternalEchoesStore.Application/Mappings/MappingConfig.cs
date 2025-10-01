@@ -1,4 +1,5 @@
-﻿    using EternalEchoesStore.Application.Commands.Products.CreateProduct;
+﻿    using System.Collections.Generic;
+    using EternalEchoesStore.Application.Commands.Products.CreateProduct;
     using EternalEchoesStore.Application.Commands.Products.UpdateProduct;
     using EternalEchoesStore.Contracts.Responses;
     using EternalEchoesStore.Domain.Entities.ProductDb;

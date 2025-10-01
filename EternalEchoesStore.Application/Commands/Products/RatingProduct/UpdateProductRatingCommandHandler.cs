@@ -1,4 +1,8 @@
-﻿using EternalEchoesStore.Application.Commands.Products.DeleteProduct;
+﻿using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using EternalEchoesStore.Application.Commands.Products.DeleteProduct;
 using EternalEchoesStore.Contracts.Exceptions;
 using EternalEchoesStore.Domain.Entities.ProductDb;
 using EternalEchoesStore.Infrastructure.DbContextInfrastructure;
