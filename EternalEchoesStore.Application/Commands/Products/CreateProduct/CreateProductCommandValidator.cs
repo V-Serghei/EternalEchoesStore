@@ -1,4 +1,10 @@
-﻿using FluentValidation;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
+using FluentValidation;
 
 namespace EternalEchoesStore.Application.Commands.Products.CreateProduct
 {
