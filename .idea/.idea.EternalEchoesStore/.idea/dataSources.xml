@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="eternal_echoes_store@localhost" uuid="fc86ad01-c80b-48c3-9b68-225f085e23be">
+    <data-source source="LOCAL" name="eternal_echoes_store@localhost" uuid="a9bc97d4-f1e7-4d43-9130-f5da139cf945">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <configured-by-url>true</configured-by-url>

@@ -3,7 +3,7 @@ version: "3.5"
 services:
   app:
     build:
-      context: "D:\\Projects\\pd\\EternalEchoesStore\\EternalEchoesStore.Presentation"
+      context: "C:\\Users\\visto\\RiderProjects\\EternalEchoesStore\\EternalEchoesStore.Presentation"
       dockerfile: "Dockerfile"
       target: "base"
     command: []
@@ -12,12 +12,11 @@ services:
     - "/app/bin/Debug/net8.0/EternalEchoesStore.Presentation.dll"
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
-      ASPNETCORE_STATICWEBASSETS: "/app/bin/Debug/net8.0/EternalEchoesStore.Presentation.staticwebassets.runtime.CT.json"
       DOTNET_USE_POLLING_FILE_WATCHER: "true"
     image: "eternalechoesstore.presentation:dev"
     ports: []
     volumes:
-    - "C:\\Users\\admin\\.nuget\\packages:/home/app/.nuget/packages"
-    - "D:\\Projects\\pd\\EternalEchoesStore\\EternalEchoesStore.Presentation:/app:rw"
-    - "D:\\Projects\\pd\\EternalEchoesStore:/src:rw"
+    - "C:\\Users\\visto\\RiderProjects\\EternalEchoesStore\\EternalEchoesStore.Presentation:/app:rw"
+    - "C:\\Users\\visto\\RiderProjects\\EternalEchoesStore:/src:rw"
+    - "C:\\Users\\visto\\.nuget\\packages:/home/app/.nuget/packages"
     working_dir: "/app"

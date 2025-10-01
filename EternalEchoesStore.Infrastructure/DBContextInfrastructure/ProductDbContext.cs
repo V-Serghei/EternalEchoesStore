@@ -16,10 +16,17 @@ public DbSet<CartItems> CartItems { get; set; }
 
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
+    modelBuilder.Entity<Product>(b =>
+    {
+        b.ToTable("products", "public");
+        b.HasKey(x => x.Id);
+    });
+
     modelBuilder.Entity<ProductDbUserDb>(entity =>
     {
-        entity.HasKey(e => e.Id );
-    
+        entity.ToTable("product_reviews", "public");
+        entity.HasKey(e => e.Id);
+
         entity.HasOne(e => e.Product)
             .WithMany(p => p.UserReviews)
             .HasForeignKey(e => e.ProductId)
@@ -33,15 +40,24 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
     modelBuilder.Entity<CartItems>(entity =>
     {
-        entity.HasOne(e => e.User)
-            .WithMany(u => u.CartItems)
-            .HasForeignKey(e => e.UserId)
-            .OnDelete(DeleteBehavior.Cascade);
+        entity.ToTable("cart_items", "public");
+        entity.HasKey(e => e.Id);
 
         entity.HasOne(e => e.Product)
             .WithMany(p => p.CartItems)
             .HasForeignKey(e => e.ProductId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        entity.HasOne(e => e.User)
+            .WithMany(u => u.CartItems)
+            .HasForeignKey(e => e.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+    });
+
+    modelBuilder.Entity<UserDb>(b =>
+    {
+        b.ToTable("userdb", "public", t => t.ExcludeFromMigrations()); // ← ключевая строка
+        b.HasKey(u => u.Id);
     });
 }
 
