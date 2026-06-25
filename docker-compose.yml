@@ -3,12 +3,13 @@ version: '3.5'
 networks:
   deploy-guide-dev:
     driver: bridge
+
 services:
   app:
     container_name: eternal_echoes_store
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: EternalEchoesStore.Presentation/Dockerfile
     image: eternalechoesstore.presentation
     ports:
       - "8080:80"
@@ -19,7 +20,7 @@ services:
 
   postgres_db:
     container_name: postgres
-    image: postgres:latest
+    image: postgres:17
     environment:
       POSTGRES_DB: eternal_echoes_store
       POSTGRES_USER: admin

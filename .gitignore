@@ -1,5 +1,83 @@
+# Build artifacts
 bin/
 obj/
 /packages/
+artifacts/
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.iml
 riderModule.iml
 /_ReSharper.Caches/
+*.suo
+*.user
+*.userosscache
+*.userprefs
+*.sln.docstates
+
+# .NET
+*.nupkg
+*.snupkg
+project.lock.json
+project.fragment.lock.json
+
+# ASP.NET
+**/wwwroot/dist/
+appsettings.local.json
+appsettings.Development.json
+appsettings.Staging.json
+appsettings.Production.json
+
+# Entity Framework
+*.mdf
+*.ldf
+*.ndf
+
+# Secrets / credentials
+.env
+.env.*
+secrets.json
+*.pfx
+*.p12
+local.settings.json
+
+# Node.js / Frontend
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.next/
+out/
+dist/
+.nuxt/
+.cache/
+.parcel-cache/
+.turbo/
+
+# Docker
+docker-compose.override.yml
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Logs
+*.log
+logs/
+
+# Test results
+TestResults/
+*.coveragexml
+*.coverage
+coverage/
+
+# Misc
+*.tmp
+*.temp
+~$*
