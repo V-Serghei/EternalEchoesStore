@@ -1,4 +1,6 @@
-﻿using EternalEchoesStore.Contracts.Responses.UserResponses;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using EternalEchoesStore.Contracts.Responses.UserResponses;
 using EternalEchoesStore.Infrastructure.DbContextInfrastructure;
 using Mapster;
 using MediatR;
@@ -16,7 +18,7 @@ public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, GetUsersRespo
     }
     public async Task<GetUsersResponse> Handle(GetUsersQuery request, CancellationToken cancellationToken)
     {
-        var users = await _userDbContext.Users.ToListAsync(cancellationToken);
+        var users = await _userDbContext.UserDb.ToListAsync(cancellationToken);
         return users.Adapt<GetUsersResponse>();
     }
 }

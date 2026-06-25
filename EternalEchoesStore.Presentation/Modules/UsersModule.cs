@@ -6,6 +6,7 @@ using EternalEchoesStore.Application.Queries.Users.GetUser;
 using EternalEchoesStore.Application.Queries.Users.GetUserById;
 using EternalEchoesStore.Contracts.Requests.Users;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EternalEchoesStore.Presentation.Modules;
 
@@ -13,19 +14,19 @@ public static class UsersModule
 {
     public static void AddUsersEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGet("/api/EternalEchoesStore/user/", async (IMediator mediator, CancellationToken ct) =>
+        app.MapGet("/api/EternalEchoesStore/user/", [Authorize(Policy = "GuestOnly")] async (IMediator mediator, CancellationToken ct) =>
         {
             var users = await mediator.Send(new GetUsersQuery(), ct);
             return Results.Ok(users);
         }).WithTags("Users");
         
-        app.MapGet("/api/EternalEchoesStore/user/{id}", async (IMediator mediator,int id, CancellationToken ct) =>
+        app.MapGet("/api/EternalEchoesStore/user/{id}", [Authorize(Policy = "GuestOnly")] async (IMediator mediator,int id, CancellationToken ct) =>
         {
             var users = await mediator.Send(new GetUserByIdQuery(id), ct);
             return Results.Ok(users);
         }).WithTags("Users");
         
-        app.MapPost("/api/EternalEchoesStore/user", async (IMediator mediator
+        app.MapPost("/api/EternalEchoesStore/user",  async (IMediator mediator
             , CreateUserRequest createUserRequest, CancellationToken ct)=>
         {
             var command = new CreateUserCommand
@@ -40,7 +41,7 @@ public static class UsersModule
             return Results.Ok(result);
         }).WithTags("Users");
         
-        app.MapPut("/api/EternalEchoesStore/user/{id}",
+        app.MapPut("/api/EternalEchoesStore/user/{id}",[Authorize(Policy = "UserOnly")]
             async (IMediator mediator, int id, UpdateUserRequest updateUserRequest
                 , CancellationToken ct) =>
             {
@@ -57,7 +58,7 @@ public static class UsersModule
                 return Results.Ok(result);
             }).WithTags("Users");
         
-        app.MapDelete("/api/EternalEchoesStore/user/{id}", async (IMediator mediator, int id, CancellationToken ct) =>
+        app.MapDelete("/api/EternalEchoesStore/user/{id}", [Authorize(Policy = "AdminOnly")]async (IMediator mediator, int id, CancellationToken ct) =>
         {
             var command = new DeleteUserCommand(id);
             var result = await mediator.Send(command, ct);
@@ -66,7 +67,7 @@ public static class UsersModule
         }).WithTags("Users");
         
         //Verification User - Login
-        app.MapPut("/api/EternalEchoesStore/user/",
+        app.MapPut("/api/EternalEchoesStore/user/", 
             async (IMediator mediator, VerificationUserRequest verificationUserRequest, 
                 CancellationToken ct) =>
             {

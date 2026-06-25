@@ -1,47 +1,75 @@
 # Build artifacts
 bin/
 obj/
+[Bb]uild/
 /packages/
 artifacts/
+**/publish/
+**/AppPackages/
+**/BundleArtifacts/
+**/GeneratedFiles/
 
 # IDE
 .vs/
 .vscode/
 .idea/
 *.iml
+*.iws
+*.ipr
 riderModule.iml
 /_ReSharper.Caches/
+_ReSharper.Caches/
+.ReSharper*/
 *.suo
 *.user
 *.userosscache
 *.userprefs
 *.sln.docstates
+*.DotSettings.user
 
 # .NET
 *.nupkg
 *.snupkg
 project.lock.json
 project.fragment.lock.json
+*.nuget.props
+*.nuget.targets
+*.cache
+*.tlog
+*.trx
+*.rsp
+*.VisualState.xml
+**/Migrations/**/obj/
+**/TestResults/
 
 # ASP.NET
 **/wwwroot/dist/
 appsettings.local.json
+appsettings.Local.json
 appsettings.Development.json
 appsettings.Staging.json
 appsettings.Production.json
+appsettings.*.local.json
 
 # Entity Framework
 *.mdf
 *.ldf
 *.ndf
+*.sqlite
+*.sqlite3
+*.db
 
 # Secrets / credentials
 .env
 .env.*
+*.env
+*.env.local
 secrets.json
+*.secret.json
 *.pfx
 *.p12
 local.settings.json
+**/.microsoft/usersecrets/**
 
 # Node.js / Frontend
 node_modules/
@@ -52,32 +80,46 @@ yarn-error.log*
 .next/
 out/
 dist/
+build/
 .nuxt/
 .cache/
 .parcel-cache/
 .turbo/
+.eslintcache
+.stylelintcache
+storybook-static/
+coverage/
 
 # Docker
 docker-compose.override.yml
+.docker/
+postgres-data/
+pgdata/
+data/
 
 # OS
 .DS_Store
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+Icon?
 $RECYCLE.BIN/
 
 # Logs
 *.log
 logs/
+[Ll]og/
+[Ll]ogs/
 
 # Test results
 TestResults/
 *.coveragexml
 *.coverage
-coverage/
 
 # Misc
 *.tmp
 *.temp
+*.bak
+*.orig
+*.swp
 ~$*

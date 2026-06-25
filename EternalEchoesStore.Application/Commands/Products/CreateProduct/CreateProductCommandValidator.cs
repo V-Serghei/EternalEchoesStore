@@ -1,4 +1,10 @@
-﻿using FluentValidation;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
+using FluentValidation;
 
 namespace EternalEchoesStore.Application.Commands.Products.CreateProduct
 {
@@ -51,6 +57,13 @@ namespace EternalEchoesStore.Application.Commands.Products.CreateProduct
                     .WithMessage($"{nameof(CreateProductCommand.ImageUrl)} must point to an image with a valid extension (e.g., .jpg, .png, .gif).")
                 .MustAsync(async (url, cancellation) => await IsUrlAccessible(url, cancellation))
                     .WithMessage($"{nameof(CreateProductCommand.ImageUrl)} is not accessible or does not exist.");
+            RuleFor(x => x.Price)
+                .NotEmpty()
+                .WithMessage($"{nameof(CreateProductCommand.Price)} cannot be empty.");
+            RuleFor(x => x.Quantity)
+                .NotEmpty()
+                .WithMessage($"{nameof(CreateProductCommand.SubCategory)} cannot be empty.");
+            
         }
 
         /// <summary>

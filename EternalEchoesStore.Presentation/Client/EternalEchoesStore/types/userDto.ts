@@ -6,5 +6,6 @@
     email: string,
     password: string,
     photo: string,
-    createdAt: string | undefined
+    createdAt: string | undefined,
+    token: string | undefined,
 }

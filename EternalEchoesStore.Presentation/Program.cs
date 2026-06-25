@@ -1,8 +1,12 @@
+using System.Text;
 using EternalEchoesStore.Application;
 using EternalEchoesStore.Infrastructure.DbContextInfrastructure;
 using EternalEchoesStore.Presentation.Handlers;
+using EternalEchoesStore.Presentation.Middlewares;
 using EternalEchoesStore.Presentation.Modules;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +25,28 @@ builder.Services.AddCors(opt =>
               .AllowAnyMethod()
               .AllowAnyHeader()));
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"] ?? string.Empty))
+        };
+    });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("GuestOnly", policy => policy.RequireRole("Guest", "User", "Admin"));
+    options.AddPolicy("UserOnly", policy => policy.RequireRole("User", "Admin"));
+    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+});
+
 builder.Services.AddApplication();
 builder.Services.AddExceptionHandler<ExceptionHandler>();
 
@@ -35,6 +61,9 @@ if (app.Environment.IsDevelopment())
 app.UseExceptionHandler(_ => { });
 app.UseCors("CorsPolicy");
 app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseMiddleware<JwtMiddleware>();
 
 app.AddProductEndpoints();
 app.AddUsersEndpoints();

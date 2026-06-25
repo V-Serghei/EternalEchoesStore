@@ -7,18 +7,33 @@ import { useEffect, useState } from "react";
 
 import ThemeToggler from "./ThemeToggler";
 import menuData from "./menuData";
-
+import {FiEdit2} from "react-icons/fi";
+import {router} from "next/client";
+import {CgFileAdd} from "react-icons/cg";
+import { useRouter } from "next/navigation";
+import apiConnector from "@/api/user/apiConnector";
+import {jwtDecode} from "jwt-decode";
 const Header = () => {
   const [navigationOpen, setNavigationOpen] = useState(false);
   const [dropdownToggler, setDropdownToggler] = useState(false);
   const [stickyMenu, setStickyMenu] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
-
+  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("authToken"));
   const pathUrl = usePathname();
   const [hideTimeout, setHideTimeout] = useState<number | null>(null);
-
-  
+  const router = useRouter();
+  const [userName, setUserName] = useState<string | null>(null);
+  interface JwtPayload {
+    sub: string;
+    email: string;
+    Name: string;
+    jti: any;
+    role: string;
+    exp: number;
+    iss: string;
+    aud: string;
+  }
   const handleMouseEnter = (setOpen: (value: boolean) => void) => {
     if (hideTimeout) {
       clearTimeout(hideTimeout);
@@ -43,9 +58,22 @@ const Header = () => {
     }
   };
 
+  
   useEffect(() => {
+    const token = localStorage.getItem("authToken"); 
+    setIsAuthenticated(!!token);
+    if (token) {
+      try {
+        const decodedToken = jwtDecode<JwtPayload>(token);
+        localStorage.setItem("id", decodedToken.sub);
+        setUserName(decodedToken.Name); 
+      } catch (error) {
+        console.error("Ошибка декодирования токена:", error);
+      }
+    }
     window.addEventListener("scroll", handleStickyMenu);
-  });
+    return () => window.removeEventListener("scroll", handleStickyMenu);
+  }, []);
 
   return (
       <header
@@ -159,19 +187,29 @@ const Header = () => {
                 ))}
               </ul>
             </nav>
+            <div className="mt-7 flex items-center gap-6 xl:mt-0">
+              <button
+                  onClick={() => router.push(`/products/add`)}
+                  className="flex items-center gap-2 bg-gray-200 text-gray-700 py-2 px-4 rounded-md shadow hover:bg-gray-300"
+              >
+                <CgFileAdd size={20}/>
 
+              </button>
+            </div>
             <div className="mt-7 flex items-center gap-6 xl:mt-0">
               <ThemeToggler/>
-
+              {!isAuthenticated ? (
               <Link href="/auth/signup" className="text-primary font-medium">
                 Sign up
               </Link>
-
+                  ):(
+                      <>
               <div
                   className="relative"
                   onMouseEnter={() => handleMouseEnter(setCartOpen)}
                   onMouseLeave={() => handleMouseLeave(setCartOpen)}
               >
+                
                 <button className="text-primary font-medium">Basket 🛒</button>
                 <div
                     className={`absolute right-0 top-full mt-2 w-80 bg-white p-4 shadow-md dark:bg-gray-800 transition-all duration-300 transform ${
@@ -190,13 +228,13 @@ const Header = () => {
                 </div>
               </div>
 
-              {/* Профиль */}
+              {/* profile */}
               <div
                   className="relative"
                   onMouseEnter={() => handleMouseEnter(setProfileOpen)}
                   onMouseLeave={() => handleMouseLeave(setProfileOpen)}
               >
-                <button className="text-primary font-medium">Profile 👤</button>
+                <button className="text-primary font-medium"><span>{userName  || "Profile"}👤</span></button>
                 <div
                     className={`absolute right-0 top-full mt-2 w-64 bg-white p-4 shadow-md dark:bg-gray-800 transition-all duration-300 transform ${
                         profileOpen
@@ -214,15 +252,32 @@ const Header = () => {
                     <li>
                       <Link href="/profile/orders">Покупки</Link>
                     </li>
+                    <li>
+                      <button
+                          onClick={() => {
+                            apiConnector.logout();
+                            window.location.reload();
+                            router.push("/auth/signin");
+                           
+
+                          }}
+                          className="text-primary hover:text-red-500"
+                      >
+                        Logout
+                      </button>
+                    </li>
                   </ul>
                 </div>
               </div>
+                      </>
+              )}
             </div>
+
           </div>
         </div>
 
       </header>
-);
+  );
 };
 
 export default Header;

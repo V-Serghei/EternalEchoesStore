@@ -6,7 +6,7 @@ import apiConnector from "@/api/user/apiConnector";
 import {useEffect, useState} from "react";
 export default function ProfilePage() {
     let id: any;
-    id =9;
+    id = Number (localStorage.getItem("id"));
     
     const [user, setUser] = useState<UserDto| null>(null);
     const [loading, setLoading] = useState(false);
@@ -16,7 +16,7 @@ export default function ProfilePage() {
         if (id) {
             const fetchUsers = async () => {
                 try {
-                    const userInfo = await apiConnector.getUserById(Number(9));
+                    const userInfo = await apiConnector.getUserById(Number(id));
                     setUser(userInfo || null);
                 } catch (error) {
                     console.error("Error fetching user:", error);

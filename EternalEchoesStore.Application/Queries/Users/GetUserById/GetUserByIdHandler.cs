@@ -1,4 +1,6 @@
-﻿using EternalEchoesStore.Contracts.Exceptions;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using EternalEchoesStore.Contracts.Exceptions;
 using EternalEchoesStore.Contracts.Responses.UserResponses;
 using EternalEchoesStore.Domain.Entities.UserDb;
 using EternalEchoesStore.Infrastructure.DbContextInfrastructure;
@@ -18,7 +20,7 @@ public class GetUserByIdHandler : IRequestHandler<GetUserByIdQuery, GetUserByIdR
     }
     public async Task<GetUserByIdResponse> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
     {
-        var user = await _userDbContext.Users
+        var user = await _userDbContext.UserDb
             .FirstOrDefaultAsync(x=>x.Id==request.Id, cancellationToken);
         if (user is null)
         {
